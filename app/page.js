@@ -27,6 +27,8 @@ export default function Home() {
     return <div>Loading...</div>;
   }
 
+  console.log(transactions);
+
   return (
     <div>
       <h1>Transactions</h1>
