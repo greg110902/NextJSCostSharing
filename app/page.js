@@ -48,7 +48,7 @@ export default function Home() {
           date={"28/08/2024"}
         />
       </div>
-      <div>{JSON.stringify(transactions)}</div>
+      <div>{transactions}</div>
     </div>
   );
 }
