@@ -14,6 +14,14 @@ export default function Home() {
           title={"Condoms"}
           date={"28/08/2024"}
         />
+        <Card
+          transactionID={1}
+          author={"Greg"}
+          affected={"Harry"}
+          amount={100}
+          title={"Peppers"}
+          date={"28/08/2024"}
+        />
       </div>
     </div>
   );
