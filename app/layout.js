@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
         <div className="align-top">
           <NavBar />
         </div>
-        {children}
+        <div className="bg-white">{children}</div>
       </body>
     </html>
   );
