@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Card from "./components/transactions/Card";
 import { useEffect, useState } from "react";
