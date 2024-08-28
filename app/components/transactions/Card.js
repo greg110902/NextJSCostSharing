@@ -7,7 +7,7 @@ export default function Card({
   date,
 }) {
   return (
-    <div className="card bg-slate-100 w-3/4 shadow-xl m-10 hover:bg-gray-100 hover:scale-105 flex justify-center">
+    <div className="card bg-slate-400 w-3/4 shadow-xl m-10 hover:bg-gray-100 hover:scale-105 flex justify-center">
       <div className="card-body">
         <h2 className="card-title flex justify-center">{title}</h2>
         <div>Submitted by: {author}</div>
