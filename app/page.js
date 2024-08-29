@@ -4,7 +4,34 @@ import Card from "./components/transactions/Card";
 import { useEffect, useState } from "react";
 import supabase from "./utils/supabase";
 
-function submitTransaction() {}
+function newID(transactions) {
+  var IDs = [];
+  transactions.map((transaction) => {
+    IDs.push(transaction["id"]);
+  });
+
+  return Math.max(...IDs) + 1;
+}
+
+async function submitForm(transactions) {
+  let author = document.getElementById("author").value;
+  let title = document.getElementById("title").value;
+  let amount = document.getElementById("amount").value;
+
+  const client = supabase();
+
+  console.log(newID(transactions));
+
+  const { error } = await client.from("transactions").insert({
+    id: newID(transactions),
+    author: author,
+    affecting: ["harry", "alex", "leo"],
+    amount: amount,
+    title: title,
+  });
+
+  console.log(await error);
+}
 
 export default function Home() {
   const [transactions, setTransactions] = useState([]);
@@ -29,34 +56,40 @@ export default function Home() {
   } else {
     return (
       <div>
-        <div className="flex justify-center">
-          <button
-            className="btn flex justify-center m-5"
-            onClick={() => document.getElementById("my_modal_2").showModal()}
-          >
-            Add transaction
-          </button>
-        </div>
-        <dialog id="my_modal_2" className="modal">
+        <label htmlFor="my_modal_7" className="btn">
+          open modal
+        </label>
+
+        <input type="checkbox" id="my_modal_7" className="modal-toggle" />
+        <div className="modal" role="dialog">
           <div className="modal-box">
             <h3 className="font-bold text-lg">Add transaction</h3>
-            <form onSubmit={submitTransaction()}>
-              <label className="m-1">Author</label>
-              <input></input>
-              <label className="m-1">Title</label>
-              <input></input>
-              <label className="m-1">Amount</label>
-              <input type="number"></input>
-              <div className="flex justify-center">
-                <button className="flex justify-center">Submit</button>
+            <form
+              id="transactionForm"
+              onSubmit={() => submitForm(transactions)}
+            >
+              <div>
+                <label className="m-1">Author</label>
+                <input id="author"></input>
+              </div>
+              <div>
+                <label className="m-1">Title</label>
+                <input id="title"></input>
+              </div>
+              <div>
+                <label className="m-1">Amount</label>
+                <input type="number" id="amount"></input>
+              </div>
+              <div className="modal-action" onClick={console.log("working")}>
+                <button className="btn" htmlFor="my_modal_7" type="submit">
+                  Submit
+                </button>
               </div>
             </form>
-            <p className="py-4">Click outside to close</p>
           </div>
-          <form method="dialog" className="modal-backdrop">
-            <button>close</button>
-          </form>
-        </dialog>
+          <label className="modal-backdrop" htmlFor="my_modal_7"></label>
+        </div>
+
         <h1>Transactions</h1>
         <div className="flex justify-center">
           {transactions.map((transaction) => {
