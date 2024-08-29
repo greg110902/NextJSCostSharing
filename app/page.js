@@ -10,21 +10,17 @@ export default function Home() {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const client = supabase();
-
-  useEffect(
-    (client, loading) => {
-      const fetchTransactions = async () => {
-        const { data } = await client.from("transactions").select();
-        setTransactions(await data);
-        setLoading(false);
-      };
-      if (loading) {
-        fetchTransactions();
-      }
-    },
-    [client, loading]
-  );
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      const client = supabase();
+      const { data } = await client.from("transactions").select();
+      setTransactions(await data);
+      setLoading(false);
+    };
+    if (loading) {
+      fetchTransactions();
+    }
+  }, []);
 
   console.log("Transactions", transactions);
 
