@@ -91,21 +91,22 @@ export default function Home() {
         </div>
 
         <h1>Transactions</h1>
-        <div className="flex justify-center">
-          {transactions.map((transaction) => {
-            return (
-              <Card
-                transactionID={transaction["id"]}
-                author={transaction["author"]}
-                affected={transaction["affecting"]}
-                amount={transaction["amount"]}
-                title={transaction["title"]}
-                date={transaction["created_at"]}
-              />
-            );
-          })}
+        <div>
+          <div className="flex justify-center flex-wrap">
+            {transactions.map((transaction) => {
+              return (
+                <Card
+                  transactionID={transaction["id"]}
+                  author={transaction["author"]}
+                  affected={transaction["affecting"]}
+                  amount={transaction["amount"]}
+                  title={transaction["title"]}
+                  date={transaction["created_at"]}
+                />
+              );
+            })}
+          </div>
         </div>
-        <div>{JSON.stringify(transactions)}</div>
       </div>
     );
   }
