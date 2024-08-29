@@ -40,7 +40,10 @@ export default function Home() {
   useEffect(() => {
     const fetchTransactions = async () => {
       const client = supabase();
-      const { data } = await client.from("transactions").select();
+      const { data } = await client
+        .from("transactions")
+        .select()
+        .order("created_at", { ascending: false });
       setTransactions(await data);
       setLoading(false);
     };
@@ -56,9 +59,11 @@ export default function Home() {
   } else {
     return (
       <div>
-        <label htmlFor="my_modal_7" className="btn">
-          open modal
-        </label>
+        <div className="flex justify-center">
+          <label htmlFor="my_modal_7" className="btn">
+            Submit transaction
+          </label>
+        </div>
 
         <input type="checkbox" id="my_modal_7" className="modal-toggle" />
         <div className="modal" role="dialog">
