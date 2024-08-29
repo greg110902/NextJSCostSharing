@@ -3,6 +3,7 @@
 import Card from "./components/transactions/Card";
 import { useEffect, useState } from "react";
 import supabase from "./utils/supabase";
+import PayerForm from "./components/transaction/payerForm";
 
 function newID(transactions) {
   var IDs = [];
@@ -13,28 +14,38 @@ function newID(transactions) {
   return Math.max(...IDs) + 1;
 }
 
-async function submitForm(transactions) {
+async function submitForm(transactions, everyoneChecked) {
   let author = document.getElementById("author").value;
   let title = document.getElementById("title").value;
   let amount = document.getElementById("amount").value;
 
   const client = supabase();
 
-  console.log(newID(transactions));
+  let checked = [];
+
+  if (!everyoneChecked) {
+    var payers = document.getElementsByName("payerCheckbox");
+    for (const payer of payers) {
+      if (payer.checked) {
+        checked.push(payer.id);
+      }
+    }
+  } else {
+    checked = ["Everyone"];
+  }
 
   const { error } = await client.from("transactions").insert({
     id: newID(transactions),
     author: author,
-    affecting: ["harry", "alex", "leo"],
+    affecting: checked,
     amount: amount,
     title: title,
   });
-
-  console.log(await error);
 }
 
 export default function Home() {
   const [transactions, setTransactions] = useState([]);
+  const [everyoneChecked, setEveryoneChecked] = useState(true);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -51,8 +62,6 @@ export default function Home() {
       fetchTransactions();
     }
   }, []);
-
-  console.log("Transactions", transactions);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -71,7 +80,7 @@ export default function Home() {
             <h3 className="font-bold text-lg">Add transaction</h3>
             <form
               id="transactionForm"
-              onSubmit={() => submitForm(transactions)}
+              onSubmit={() => submitForm(transactions, everyoneChecked)}
             >
               <div>
                 <label className="m-1">Author</label>
@@ -85,7 +94,17 @@ export default function Home() {
                 <label className="m-1">Amount</label>
                 <input type="number" id="amount"></input>
               </div>
-              <div className="modal-action" onClick={console.log("working")}>
+              <div className="m-1">
+                <label>Everyone paying</label>
+                <input
+                  type="checkbox"
+                  defaultChecked={everyoneChecked}
+                  onClick={() => setEveryoneChecked(!everyoneChecked)}
+                  className="checkbox justify-center"
+                />
+                {!everyoneChecked ? <PayerForm /> : <></>}
+              </div>
+              <div className="modal-action">
                 <button className="btn" htmlFor="my_modal_7" type="submit">
                   Submit
                 </button>

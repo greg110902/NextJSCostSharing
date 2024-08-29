@@ -1,6 +1,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/navbar/NavBar";
+import { ClerkProvider, SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignInButton, UserButton } from "@clerk/nextjs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,13 +13,20 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="bg-white">
-      <body className="bg-white">
-        <div className="align-top">
-          <NavBar />
-        </div>
-        <div className="bg-white">{children}</div>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className="bg-white">
+        <body className="bg-white">
+          <SignedOut>
+            <SignInButton />
+          </SignedOut>
+          <SignedIn>
+            <div className="align-top">
+              <NavBar />
+            </div>
+            <div className="bg-white">{children}</div>
+          </SignedIn>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

@@ -1,3 +1,7 @@
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1) + ", ";
+}
+
 export default function Card({
   transactionID,
   author,
@@ -18,7 +22,7 @@ export default function Card({
           {" "}
           Affecting:{" "}
           {affected.map((person) => {
-            return person;
+            return capitalizeFirstLetter(person);
           })}
         </div>
         <div className="text-slate-900">On: {date}</div>
