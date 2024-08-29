@@ -13,7 +13,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider publishableKey="pk_test_YWxlcnQtdHJvbGwtMjUuY2xlcmsuYWNjb3VudHMuZGV2JA">
+    <ClerkProvider
+      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+    >
       <html lang="en" className="bg-white">
         <body className="bg-white">
           <SignedOut>
