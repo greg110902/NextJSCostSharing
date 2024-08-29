@@ -13,7 +13,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider publishableKey="pk_test_YWxlcnQtdHJvbGwtMjUuY2xlcmsuYWNjb3VudHMuZGV2JA">
       <html lang="en" className="bg-white">
         <body className="bg-white">
           <SignedOut>
