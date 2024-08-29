@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Card from "./components/transactions/Card";
 import { useEffect, useState } from "react";
+import supabase from "./utils/supabase";
 
 function getTransactions() {}
 
@@ -10,11 +10,11 @@ export default function Home() {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const client = supabase();
+
   useEffect(() => {
     const fetchTransactions = async () => {
-      const { data } = await fetch(
-        "https://gettransactions.gwgh1g21.workers.dev/"
-      );
+      const { data } = await client.from("transactions").select();
       setTransactions(await data);
       setLoading(false);
     };
@@ -23,34 +23,30 @@ export default function Home() {
     }
   }, []);
 
+  console.log("Transactions", transactions);
+
   if (loading) {
     return <div>Loading...</div>;
-  }
-
-  console.log(transactions);
-
-  return (
-    <div>
-      <h1>Transactions</h1>
+  } else {
+    return (
       <div>
-        <Card
-          transactionID={1}
-          author={"Greg"}
-          affected={"Alivia"}
-          amount={100}
-          title={"Condoms"}
-          date={"28/08/2024"}
-        />
-        <Card
-          transactionID={1}
-          author={"Greg"}
-          affected={"Harry"}
-          amount={100}
-          title={"Peppers"}
-          date={"28/08/2024"}
-        />
+        <h1>Transactions</h1>
+        <div>
+          {transactions.map((transaction) => {
+            return (
+              <Card
+                transactionID={transaction["id"]}
+                author={transaction["author"]}
+                affected={transaction["affecting"]}
+                amount={transaction["amount"]}
+                title={transaction["title"]}
+                date={transaction["created_at"]}
+              />
+            );
+          })}
+        </div>
+        <div>{JSON.stringify(transactions)}</div>
       </div>
-      <div>{transactions}</div>
-    </div>
-  );
+    );
+  }
 }
