@@ -12,7 +12,7 @@ export default function Home() {
 
   const client = supabase();
 
-  useEffect(() => {
+  useEffect((client, loading) => {
     const fetchTransactions = async () => {
       const { data } = await client.from("transactions").select();
       setTransactions(await data);

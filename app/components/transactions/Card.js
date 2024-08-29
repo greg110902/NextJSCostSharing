@@ -14,6 +14,13 @@ export default function Card({
         </h2>
         <div className="text-slate-900">Submitted by: {author}</div>
         <div className="text-slate-900">Amount: £{amount}</div>
+        <div className="text-slate-900">
+          {" "}
+          Affecting:{" "}
+          {affected.map((person) => {
+            return person;
+          })}
+        </div>
         <div className="text-slate-900">On: {date}</div>
       </div>
     </div>
