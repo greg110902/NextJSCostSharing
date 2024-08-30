@@ -100,25 +100,25 @@ export default function Home() {
               id="transactionForm"
               onSubmit={() => submitForm(transactions, everyoneChecked)}
             >
-              <div>
+              <div className="m-1">
                 <label className="m-1 text-black">Author</label>
                 <input
                   id="author"
                   disabled
-                  className="bg-slate-300"
+                  className="bg-slate-300 rounded"
                   defaultValue={user.firstName}
                 ></input>
               </div>
-              <div>
+              <div className="m-1">
                 <label className="m-1 text-black">Title</label>
-                <input id="title" className="bg-slate-300"></input>
+                <input id="title" className="bg-slate-300 rounded"></input>
               </div>
-              <div>
+              <div className="m-1">
                 <label className="m-1 text-black">Amount</label>
                 <input
                   type="number"
                   id="amount"
-                  className="bg-slate-300"
+                  className="bg-slate-300 rounded"
                 ></input>
               </div>
               <div className="m-1">
