@@ -4,7 +4,7 @@ import Card from "./components/transactions/Card";
 import { useEffect, useState } from "react";
 import supabase from "./utils/supabase";
 import PayerForm from "./components/transaction/payerForm";
-import { currentUser } from "@clerk/nextjs/dist/types/server";
+import { currentUser } from "@clerk/nextjs";
 
 function newID(transactions) {
   var IDs = [];
