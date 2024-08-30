@@ -111,14 +111,17 @@ export default function Home() {
               </div>
               <div className="m-1">
                 <label className="m-1 text-black">Title</label>
-                <input id="title" className="bg-slate-300 rounded"></input>
+                <input
+                  id="title"
+                  className="bg-slate-300 text-black rounded"
+                ></input>
               </div>
               <div className="m-1">
                 <label className="m-1 text-black">Amount</label>
                 <input
                   type="number"
                   id="amount"
-                  className="bg-slate-300 rounded"
+                  className="bg-slate-300 text-black rounded"
                 ></input>
               </div>
               <div className="m-1">
