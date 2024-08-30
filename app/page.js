@@ -1,3 +1,5 @@
+"use client";
+
 import Card from "./components/transactions/Card";
 import { useEffect, useState } from "react";
 import supabase from "./utils/supabase";
@@ -42,10 +44,11 @@ async function submitForm(transactions, everyoneChecked) {
   });
 }
 
-export default async function Home() {
+export default function Home() {
   const [transactions, setTransactions] = useState([]);
   const [everyoneChecked, setEveryoneChecked] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -55,14 +58,14 @@ export default async function Home() {
         .select()
         .order("created_at", { ascending: false });
       setTransactions(await data);
+      const clerkUser = await currentUser();
+      setUser(await clerkUser);
       setLoading(false);
     };
     if (loading) {
       fetchTransactions();
     }
   }, []);
-
-  const user = await currentUser();
 
   if (loading) {
     return <div>Loading...</div>;
