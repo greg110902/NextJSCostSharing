@@ -4,6 +4,7 @@ import Card from "./components/transactions/Card";
 import { useEffect, useState } from "react";
 import supabase from "./utils/supabase";
 import PayerForm from "./components/transaction/payerForm";
+import { useUser } from "@clerk/nextjs";
 //import { currentUser } from "@clerk/nextjs";
 
 function newID(transactions) {
@@ -48,7 +49,8 @@ export default function Home() {
   const [transactions, setTransactions] = useState([]);
   const [everyoneChecked, setEveryoneChecked] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState([]);
+
+  const { isSignedIn, user } = useUser();
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -58,8 +60,6 @@ export default function Home() {
         .select()
         .order("created_at", { ascending: false });
       setTransactions(await data);
-      //const clerkUser = await currentUser();
-      //setUser(await clerkUser);
       setLoading(false);
     };
     if (loading) {
@@ -119,6 +119,7 @@ export default function Home() {
         </div>
 
         <div>
+          <h1>Hello, {user?.firstName}</h1>
           <div className="flex justify-center flex-wrap">
             {transactions.map((transaction) => {
               return (
