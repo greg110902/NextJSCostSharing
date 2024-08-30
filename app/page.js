@@ -93,31 +93,36 @@ export default function Home() {
         </div>
 
         <input type="checkbox" id="my_modal_7" className="modal-toggle" />
-        <div className="modal bg-slate-300" role="dialog">
-          <div className="modal-box bg-slate-300">
+        <div className="modal bg-slate-100" role="dialog">
+          <div className="modal-box bg-slate-100">
             <h3 className="font-bold text-lg">Add transaction</h3>
             <form
               id="transactionForm"
               onSubmit={() => submitForm(transactions, everyoneChecked)}
             >
               <div>
-                <label className="m-1">Author</label>
+                <label className="m-1 text-black">Author</label>
                 <input
                   id="author"
                   disabled
+                  className="bg-slate-300"
                   defaultValue={user.firstName}
                 ></input>
               </div>
               <div>
-                <label className="m-1">Title</label>
-                <input id="title"></input>
+                <label className="m-1 text-black">Title</label>
+                <input id="title" className="bg-slate-300"></input>
               </div>
               <div>
-                <label className="m-1">Amount</label>
-                <input type="number" id="amount"></input>
+                <label className="m-1 text-black">Amount</label>
+                <input
+                  type="number"
+                  id="amount"
+                  className="bg-slate-300"
+                ></input>
               </div>
               <div className="m-1">
-                <label>Everyone paying</label>
+                <label className=" text-black">Everyone paying</label>
                 <input
                   type="checkbox"
                   defaultChecked={everyoneChecked}
