@@ -44,7 +44,7 @@ async function submitForm(transactions, everyoneChecked) {
   });
 }
 
-export default function Home(env) {
+export default function Home() {
   const [transactions, setTransactions] = useState([]);
   const [everyoneChecked, setEveryoneChecked] = useState(true);
   const [loading, setLoading] = useState(true);
