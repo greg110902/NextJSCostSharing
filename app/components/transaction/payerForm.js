@@ -24,11 +24,12 @@ export default function PayerForm() {
         {users.map((user) => {
           return (
             <div>
-              <label>{user["firstName"]}</label>
+              <label className="text-black">{user["firstName"]}</label>
               <input
                 type="checkbox"
                 id={user["id"]}
                 name="payerCheckbox"
+                className="bg-slate-200"
               ></input>
             </div>
           );
