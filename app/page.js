@@ -4,7 +4,7 @@ import Card from "./components/transactions/Card";
 import { useEffect, useState } from "react";
 import supabase from "./utils/supabase";
 import PayerForm from "./components/transaction/payerForm";
-import { useUser } from "@clerk/nextjs";
+import { SignedIn, useUser } from "@clerk/nextjs";
 //import { currentUser } from "@clerk/nextjs";
 
 function newID(transactions) {
@@ -14,6 +14,14 @@ function newID(transactions) {
   });
 
   return Math.max(...IDs) + 1;
+}
+
+async function addUser(user, client) {
+  const { error } = await client
+    .from("users")
+    .upsert({ id: String(user.id), firstName: user.firstName })
+    .select();
+  console.log(await error);
 }
 
 async function submitForm(transactions, everyoneChecked) {
@@ -52,9 +60,15 @@ export default function Home() {
 
   const { isSignedIn, user } = useUser();
 
+  const client = supabase();
+
+  if (isSignedIn) {
+    console.log("ADDING USER", user.firstName);
+    addUser(user, client);
+  }
+
   useEffect(() => {
     const fetchTransactions = async () => {
-      const client = supabase();
       const { data } = await client
         .from("transactions")
         .select()
@@ -69,7 +83,7 @@ export default function Home() {
 
   if (loading) {
     return <div>Loading...</div>;
-  } else {
+  } else if (isSignedIn) {
     return (
       <div>
         <div className="flex justify-center">
@@ -88,7 +102,11 @@ export default function Home() {
             >
               <div>
                 <label className="m-1">Author</label>
-                <input id="author"></input>
+                <input
+                  id="author"
+                  disabled
+                  defaultValue={user.firstName}
+                ></input>
               </div>
               <div>
                 <label className="m-1">Title</label>

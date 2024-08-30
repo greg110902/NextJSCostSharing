@@ -1,34 +1,39 @@
+import supabase from "../../utils/supabase";
+import { useEffect, useState } from "react";
+
 export default function PayerForm() {
-  return (
-    <div>
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const client = supabase();
+      const { data } = await client.from("users").select();
+      setUsers(await data);
+      setLoading(false);
+    };
+    if (loading) {
+      getUsers();
+    }
+  }, []);
+
+  if (!loading) {
+    console.log(users);
+    return (
       <div>
-        <label>Alex</label>
-        <input type="checkbox" id="alex" name="payerCheckbox"></input>
+        {users.map((user) => {
+          return (
+            <div>
+              <label>{user["firstName"]}</label>
+              <input
+                type="checkbox"
+                id={user["id"]}
+                name="payerCheckbox"
+              ></input>
+            </div>
+          );
+        })}
       </div>
-      <div>
-        <label>David</label>
-        <input type="checkbox" id="david" name="payerCheckbox"></input>
-      </div>
-      <div>
-        <label>Greg</label>
-        <input type="checkbox" id="greg" name="payerCheckbox"></input>
-      </div>
-      <div>
-        <label>Harry</label>
-        <input type="checkbox" id="harry" name="payerCheckbox"></input>
-      </div>
-      <div>
-        <label>JC</label>
-        <input type="checkbox" id="jc" name="payerCheckbox"></input>
-      </div>
-      <div>
-        <label>Leo</label>
-        <input type="checkbox" id="leo" name="payerCheckbox"></input>
-      </div>
-      <div>
-        <label>Tanuj</label>
-        <input type="checkbox" id="tanuj" name="payerCheckbox"></input>
-      </div>
-    </div>
-  );
+    );
+  }
 }
