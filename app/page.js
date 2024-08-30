@@ -4,7 +4,7 @@ import Card from "./components/transactions/Card";
 import { useEffect, useState } from "react";
 import supabase from "./utils/supabase";
 import PayerForm from "./components/transaction/payerForm";
-import { currentUser } from "@clerk/nextjs";
+//import { currentUser } from "@clerk/nextjs";
 
 function newID(transactions) {
   var IDs = [];
@@ -58,8 +58,8 @@ export default function Home() {
         .select()
         .order("created_at", { ascending: false });
       setTransactions(await data);
-      const clerkUser = await currentUser();
-      setUser(await clerkUser);
+      //const clerkUser = await currentUser();
+      //setUser(await clerkUser);
       setLoading(false);
     };
     if (loading) {
@@ -118,7 +118,6 @@ export default function Home() {
           <label className="modal-backdrop" htmlFor="my_modal_7"></label>
         </div>
 
-        <h1>Hello, {user?.firstName}</h1>
         <div>
           <div className="flex justify-center flex-wrap">
             {transactions.map((transaction) => {
