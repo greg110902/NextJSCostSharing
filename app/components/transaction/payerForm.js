@@ -29,7 +29,7 @@ export default function PayerForm() {
                 type="checkbox"
                 id={user["id"]}
                 name="payerCheckbox"
-                className="bg-slate-200"
+                className="checkbox bg-slate-200"
               ></input>
             </div>
           );
