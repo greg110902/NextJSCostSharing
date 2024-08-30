@@ -73,3 +73,5 @@ export default function UserPage({ params }) {
     return <>Loading...</>;
   }
 }
+
+export const runtime = "edge";
