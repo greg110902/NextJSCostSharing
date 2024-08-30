@@ -93,8 +93,8 @@ export default function Home() {
         </div>
 
         <input type="checkbox" id="my_modal_7" className="modal-toggle" />
-        <div className="modal" role="dialog">
-          <div className="modal-box">
+        <div className="modal bg-slate-300" role="dialog">
+          <div className="modal-box bg-slate-300">
             <h3 className="font-bold text-lg">Add transaction</h3>
             <form
               id="transactionForm"
