@@ -1,9 +1,8 @@
-"use client";
-
 import Card from "./components/transactions/Card";
 import { useEffect, useState } from "react";
 import supabase from "./utils/supabase";
 import PayerForm from "./components/transaction/payerForm";
+import { currentUser } from "@clerk/nextjs/dist/types/server";
 
 function newID(transactions) {
   var IDs = [];
@@ -43,7 +42,7 @@ async function submitForm(transactions, everyoneChecked) {
   });
 }
 
-export default function Home() {
+export default async function Home() {
   const [transactions, setTransactions] = useState([]);
   const [everyoneChecked, setEveryoneChecked] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -62,6 +61,8 @@ export default function Home() {
       fetchTransactions();
     }
   }, []);
+
+  const user = await currentUser();
 
   if (loading) {
     return <div>Loading...</div>;
@@ -114,7 +115,7 @@ export default function Home() {
           <label className="modal-backdrop" htmlFor="my_modal_7"></label>
         </div>
 
-        <h1>Transactions</h1>
+        <h1>Hello, {user?.firstName}</h1>
         <div>
           <div className="flex justify-center flex-wrap">
             {transactions.map((transaction) => {
