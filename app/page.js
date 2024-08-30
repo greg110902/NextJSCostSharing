@@ -105,7 +105,7 @@ export default function Home() {
                 <input
                   id="author"
                   disabled
-                  className="bg-slate-300 rounded flex flex-1 flex-row-reverse"
+                  className="bg-slate-300 rounded flex flex-1 float-right"
                   defaultValue={user.firstName}
                 ></input>
               </div>
@@ -113,7 +113,7 @@ export default function Home() {
                 <label className="m-1 text-black">Title</label>
                 <input
                   id="title"
-                  className="bg-slate-300 text-black rounded flex flex-1 flex-row-reverse"
+                  className="bg-slate-300 text-black rounded float-right"
                 ></input>
               </div>
               <div className="m-1">
@@ -121,7 +121,7 @@ export default function Home() {
                 <input
                   type="number"
                   id="amount"
-                  className="bg-slate-300 text-black rounded flex flex-1 flex-row-reverse"
+                  className="bg-slate-300 text-black rounded float-right"
                 ></input>
               </div>
               <div className="m-1">
