@@ -16,7 +16,20 @@ function newID(transactions) {
   return Math.max(...IDs) + 1;
 }
 
-async function addUser(user, client) {
+function userIDToName(userID, users) {
+  const u = users.map((user) => {
+    if (user.id === userID) {
+      return user.firstName;
+    }
+  });
+
+  const filter = u.filter((us) => us);
+
+  return filter[0];
+}
+
+async function addUser(user) {
+  const client = supabase();
   const { error } = await client
     .from("users")
     .upsert({ id: String(user.id), firstName: user.firstName })
@@ -56,6 +69,7 @@ async function submitForm(transactions, everyoneChecked) {
 export default function Home() {
   const [transactions, setTransactions] = useState([]);
   const [everyoneChecked, setEveryoneChecked] = useState(true);
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const { isSignedIn, user } = useUser();
@@ -76,8 +90,13 @@ export default function Home() {
       setTransactions(await data);
       setLoading(false);
     };
+    const fetchUsers = async () => {
+      const { data } = await client.from("users").select();
+      setUsers(await data);
+    };
     if (loading) {
       fetchTransactions();
+      fetchUsers();
     }
   }, []);
 
@@ -130,7 +149,7 @@ export default function Home() {
                   type="checkbox"
                   defaultChecked={everyoneChecked}
                   onClick={() => setEveryoneChecked(!everyoneChecked)}
-                  className="checkbox justify-center"
+                  className="checkbox align-middle mx-3"
                 />
                 {!everyoneChecked ? <PayerForm /> : <></>}
               </div>
@@ -151,11 +170,21 @@ export default function Home() {
               return (
                 <Card
                   transactionID={transaction["id"]}
-                  author={transaction["author"]}
+                  author={userIDToName(transaction["author"], users)}
                   affected={transaction["affecting"]}
                   amount={transaction["amount"]}
                   title={transaction["title"]}
-                  date={transaction["created_at"]}
+                  date={Date(transaction["created_at"]).toLocaleString(
+                    "en-uk",
+                    {
+                      weekday: "long",
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    }
+                  )}
                 />
               );
             })}

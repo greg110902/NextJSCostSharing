@@ -23,13 +23,15 @@ export default function PayerForm() {
       <div>
         {users.map((user) => {
           return (
-            <div>
-              <label className="text-black">{user["firstName"]}</label>
+            <div className="align-middle">
+              <label className="text-black align-middle">
+                {user["firstName"]}
+              </label>
               <input
                 type="checkbox"
                 id={user["id"]}
                 name="payerCheckbox"
-                className="checkbox bg-slate-200"
+                className="checkbox bg-slate-200 align-middle mx-3"
               ></input>
             </div>
           );
