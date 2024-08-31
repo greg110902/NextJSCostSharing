@@ -59,7 +59,7 @@ async function submitForm(transactions, everyoneChecked) {
 
   const { error } = await client.from("transactions").insert({
     id: newID(transactions),
-    author: author,
+    author: user.id,
     affecting: checked,
     amount: amount,
     title: title,
