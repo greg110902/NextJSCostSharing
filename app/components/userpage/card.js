@@ -1,7 +1,7 @@
 import CollapseTitle from "./collapse-title";
 import Chart from "./transactionPieChart";
 
-export default function Card({ text, amount }) {
+export default function Card({ text, amount, cardData }) {
   return (
     <div className="flex justify-center">
       <div
@@ -12,7 +12,9 @@ export default function Card({ text, amount }) {
           <CollapseTitle text={text} amount={amount} />
         </div>
 
-        <div className="collapse-content flex justify-center"> </div>
+        <div className="collapse-content flex justify-center">
+          <Chart data={cardData} />
+        </div>
       </div>
     </div>
   );

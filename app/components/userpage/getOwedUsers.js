@@ -8,7 +8,7 @@ export function getOwingUsers(owed, users) {
         owedAmount += transaction.amount / (affectedPeople + 1);
       }
     });
-    owedByUsers.push({ user: user.id, amount: owedAmount });
+    owedByUsers.push({ id: user.id, value: owedAmount, label: user.firstName });
   });
 
   return owedByUsers;
@@ -24,7 +24,11 @@ export function getOwedUsers(owing, users) {
         owingAmount += transaction.amount / (affectedPeople + 1);
       }
     });
-    owedToUsers.push({ user: user.id, amount: owingAmount });
+    owedToUsers.push({
+      id: user.id,
+      value: owingAmount,
+      label: user.firstName,
+    });
   });
 
   return owedToUsers;

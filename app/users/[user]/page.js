@@ -82,12 +82,16 @@ export default function UserPage({ params }) {
 
   if (!owingLoading && !owedLoading) {
     return (
-      <div>
-        <Card text="You are owed:" amount={add(owedArray)} />
-        <Card text="You owe:" amount={add(owingArray)} />
+      <div className="justify-center">
         <Card
-          text="Available to withdraw:"
-          amount={add(owedArray) - add(owingArray)}
+          text="You are owed:"
+          amount={add(owedArray)}
+          cardData={[{ data: getOwingUsers(owed, users) }]}
+        />
+        <Card
+          text="You owe:"
+          amount={add(owingArray)}
+          cardData={[{ data: getOwedUsers(owing, users) }]}
         />
       </div>
     );
