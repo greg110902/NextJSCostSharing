@@ -6,7 +6,7 @@ export default function Card({ text, amount, cardData }) {
     <div className="flex justify-center">
       <div
         tabIndex={0}
-        className="collapse bordered w-1/2 m-5 bg-slate-300 justify-center"
+        className="collapse bordered w-4/5 m-5 bg-slate-300 justify-center"
       >
         <div className="collapse-title">
           <CollapseTitle text={text} amount={amount} />
