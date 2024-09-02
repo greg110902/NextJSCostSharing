@@ -1,7 +1,7 @@
 import supabase from "../../utils/supabase";
 import { useEffect, useState } from "react";
 
-export default function PayerForm() {
+export default function PayerForm({ currentID }) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -18,7 +18,6 @@ export default function PayerForm() {
   }, []);
 
   if (!loading) {
-    console.log(users);
     return (
       <div>
         {users.map((user) => {
@@ -30,6 +29,7 @@ export default function PayerForm() {
               <input
                 type="checkbox"
                 id={user["id"]}
+                defaultChecked={currentID === user["id"]}
                 name="payerCheckbox"
                 className="checkbox bg-slate-200 align-middle mx-3"
               ></input>

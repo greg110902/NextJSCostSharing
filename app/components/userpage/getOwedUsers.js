@@ -1,35 +1,21 @@
-export function getOwingUsers(owed, users) {
-  var owedByUsers = [];
+export function getUserBalances(transactions, users) {
+  let userBalances = [];
   users.forEach((user) => {
-    var owedAmount = 0;
-    owed.forEach((transaction) => {
-      const affectedPeople = transaction.affecting.length;
-      if (transaction.affecting.includes(user.id)) {
-        owedAmount += transaction.amount / (affectedPeople + 1);
+    let balance = 0;
+    transactions.forEach((transaction) => {
+      if (transaction.author === user.id) {
+        balance +=
+          (transaction.amount * (transaction.affecting.length - 1)) /
+          transaction.affecting.length;
+      } else if (
+        transaction.affecting.includes(user.id) &&
+        transaction.author != user.id
+      ) {
+        balance -= transaction.amount / transaction.affecting.length;
       }
     });
-    owedByUsers.push({ id: user.id, value: owedAmount, label: user.firstName });
+    userBalances.push({ id: user.id, balance: balance });
   });
 
-  return owedByUsers;
-}
-
-export function getOwedUsers(owing, users) {
-  var owedToUsers = [];
-  users.forEach((user) => {
-    var owingAmount = 0;
-    owing.forEach((transaction) => {
-      const affectedPeople = transaction.affecting.length;
-      if (user.id === transaction.author) {
-        owingAmount += transaction.amount / (affectedPeople + 1);
-      }
-    });
-    owedToUsers.push({
-      id: user.id,
-      value: owingAmount,
-      label: user.firstName,
-    });
-  });
-
-  return owedToUsers;
+  return userBalances;
 }

@@ -6,14 +6,15 @@ import Card from "../.././components/userpage/card";
 import {
   getOwedUsers,
   getOwingUsers,
+  getUserBalances,
 } from "../../components/userpage/getOwedUsers";
+import OwedOwingCharts from "../../components/userpage/pieCharts";
 
 export default function UserPage({ params }) {
-  const [owing, setOwing] = useState([]);
-  const [owed, setOwed] = useState([]);
+  const [transactions, setTransactions] = useState([]);
+  const [transactionsLoading, setTransactionsLoading] = useState(true);
   const [users, setUsers] = useState([]);
-  const [owingLoading, setOwingLoading] = useState(true);
-  const [owedLoading, setOwedLoading] = useState(true);
+  const [usersLoading, setUsersLoading] = useState(true);
 
   const userID = params.user;
   console.log(userID);
@@ -25,74 +26,51 @@ export default function UserPage({ params }) {
   }
 
   useEffect(() => {
-    const fetchOwing = async () => {
-      const { data } = await client
-        .from("transactions")
-        .select()
-        .overlaps("affecting", [userID]);
+    const fetchTransactions = async () => {
+      const { data } = await client.from("transactions").select();
       //.contains("affecting", [userID]);
-      setOwing(await data);
-      setOwingLoading(false);
-    };
-    const fetchOwed = async () => {
-      const { data } = await client
-        .from("transactions")
-        .select()
-        .eq("author", userID);
-      //.eq("author", userID);
-      setOwed(await data);
-      setOwedLoading(false);
+      setTransactions(await data);
+      setTransactionsLoading(false);
     };
     const fetchUsers = async () => {
       const { data } = await client.from("users").select();
       setUsers(await data);
+      setUsersLoading(false);
     };
-    if (owedLoading && owingLoading) {
-      fetchOwing();
-      fetchOwed();
+    if (transactionsLoading && usersLoading) {
       fetchUsers();
+      fetchTransactions();
     }
   }, []);
 
-  let owedArray = [];
-  let owingArray = [];
-  let owedData = [];
+  if (!transactionsLoading && !usersLoading) {
+    let userBalances = getUserBalances(transactions, users);
 
-  console.log("owed ", owed);
-  console.log("owing ", owing);
+    console.log("transactions", transactions);
+    console.log("balances ", userBalances);
 
-  console.log("users ", users);
-
-  console.log("owed users", getOwedUsers(owing, users));
-  console.log("owing users", getOwingUsers(owed, users));
-
-  owed.forEach((element) => {
-    const affectedPeople = element.affecting.length;
-    owedArray.push((element.amount * affectedPeople) / (affectedPeople + 1));
-    owedData.push({
-      id: element.author,
-      value: (element.amount * affectedPeople) / (affectedPeople + 1),
+    let currentUserBalance;
+    userBalances.forEach((balance) => {
+      if (balance.id === userID) {
+        currentUserBalance = balance;
+      }
     });
-  });
 
-  owing.forEach((element) => {
-    const affectedPeople = element.affecting.length;
-    owingArray.push(element.amount / (affectedPeople + 1));
-  });
+    console.log(currentUserBalance);
 
-  if (!owingLoading && !owedLoading) {
     return (
       <div className="justify-center">
         <Card
-          text="You are owed:"
-          amount={add(owedArray)}
-          cardData={[{ data: getOwingUsers(owed, users) }]}
+          text={
+            currentUserBalance.balance >= 0
+              ? "The house owes you:"
+              : "You owe the house:"
+          }
+          amount={Math.abs(currentUserBalance.balance)}
         />
-        <Card
-          text="You owe:"
-          amount={add(owingArray)}
-          cardData={[{ data: getOwedUsers(owing, users) }]}
-        />
+        <div className="flex justify-center">
+          <OwedOwingCharts userBalances={userBalances} users={users} />
+        </div>
       </div>
     );
   } else {

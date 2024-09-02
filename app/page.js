@@ -34,10 +34,9 @@ async function addUser(user) {
     .from("users")
     .upsert({ id: String(user.id), firstName: user.firstName })
     .select();
-  console.log(await error);
 }
 
-async function submitForm(transactions, everyoneChecked) {
+async function submitForm(transactions, everyoneChecked, user, users) {
   let author = document.getElementById("author").value;
   let title = document.getElementById("title").value;
   let amount = document.getElementById("amount").value;
@@ -54,7 +53,12 @@ async function submitForm(transactions, everyoneChecked) {
       }
     }
   } else {
-    checked = ["Everyone"];
+    let ids = [];
+    users.forEach((element) => {
+      ids.push(element.id);
+    });
+    console.log(ids);
+    checked = ids;
   }
 
   const { error } = await client.from("transactions").insert({
@@ -77,7 +81,6 @@ export default function Home() {
   const client = supabase();
 
   if (isSignedIn) {
-    console.log("ADDING USER", user.firstName);
     addUser(user, client);
   }
 
@@ -117,7 +120,9 @@ export default function Home() {
             <h3 className="font-bold text-lg">Add transaction</h3>
             <form
               id="transactionForm"
-              onSubmit={() => submitForm(transactions, everyoneChecked)}
+              onSubmit={() =>
+                submitForm(transactions, everyoneChecked, user, users)
+              }
             >
               <div className="m-1">
                 <label className="m-1 text-black">Author</label>
@@ -151,7 +156,7 @@ export default function Home() {
                   onClick={() => setEveryoneChecked(!everyoneChecked)}
                   className="checkbox align-middle mx-3"
                 />
-                {!everyoneChecked ? <PayerForm /> : <></>}
+                {!everyoneChecked ? <PayerForm currentID={user.id} /> : <></>}
               </div>
               <div className="modal-action">
                 <button className="btn" htmlFor="my_modal_7" type="submit">
