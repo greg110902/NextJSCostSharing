@@ -14,9 +14,9 @@ export default async function NavBar() {
         {user.id === "user_2lL92KrCwhH1RoQcj1aeBQiSASS" ? (
           <NavButton name="Direct transactions" loc="/" />
         ) : null}
-        <DetailsModal />
         <div className="flex flex-1 flex-row-reverse">
           <UserButton />
+          <DetailsModal />
         </div>
       </SignedIn>
     </div>

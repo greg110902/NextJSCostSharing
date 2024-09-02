@@ -2,7 +2,7 @@
 
 export default function DetailsModal() {
   return (
-    <div className="flex flex-1 flex-row-reverse">
+    <div className="mx-5">
       <button
         className="text-white"
         onClick={() => document.getElementById("my_modal_2").showModal()}
