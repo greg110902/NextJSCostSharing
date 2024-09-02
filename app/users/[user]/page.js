@@ -66,7 +66,7 @@ export default function UserPage({ params }) {
               ? "The house owes you:"
               : "You owe the house:"
           }
-          amount={Math.abs(currentUserBalance.balance)}
+          amount={"£ " + Math.abs(currentUserBalance.balance)}
         />
         <div className="flex justify-center">
           <OwedOwingCharts userBalances={userBalances} users={users} />
