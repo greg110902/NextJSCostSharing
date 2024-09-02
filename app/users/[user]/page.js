@@ -2,6 +2,7 @@
 
 import supabase from "../../utils/supabase";
 import { useState, useEffect } from "react";
+import { useUser } from "@clerk/nextjs";
 import Card from "../.././components/userpage/card";
 import {
   getOwedUsers,
@@ -18,6 +19,8 @@ export default function UserPage({ params }) {
 
   const userID = params.user;
   console.log(userID);
+
+  const { isSignedIn, user } = useUser();
 
   const client = supabase();
 
@@ -57,6 +60,12 @@ export default function UserPage({ params }) {
     });
 
     console.log(currentUserBalance);
+
+    if (isSignedIn) {
+      if (user.id != userID) {
+        return <>You are not allowed to access this page.</>;
+      }
+    }
 
     return (
       <div className="justify-center">

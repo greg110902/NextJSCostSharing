@@ -2,6 +2,7 @@ import { SignedIn } from "@clerk/nextjs";
 import NavButton from "./NavButton";
 import { UserButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
+import DetailsModal from "./detailsModal";
 
 export default async function NavBar() {
   const user = await currentUser();
@@ -10,6 +11,10 @@ export default async function NavBar() {
       <SignedIn>
         <NavButton name="Transactions" loc="/" />
         <NavButton name="User" loc={`/users/${user.id}`} />
+        {user.id === "user_2lL92KrCwhH1RoQcj1aeBQiSASS" ? (
+          <NavButton name="Direct transactions" loc="/" />
+        ) : null}
+        <DetailsModal />
         <div className="flex flex-1 flex-row-reverse">
           <UserButton />
         </div>
