@@ -69,7 +69,7 @@ export default function QueuePage({ params }) {
     });
 
     return (
-      <div>
+      <div className="flex">
         <a className="btn m-3" href={`/users/${userID}`}>
           Back
         </a>
