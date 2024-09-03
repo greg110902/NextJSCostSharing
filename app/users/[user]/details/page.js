@@ -42,3 +42,5 @@ export default function Page() {
     return <>Loading...</>;
   }
 }
+
+export const runtime = "edge";
