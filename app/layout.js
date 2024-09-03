@@ -1,6 +1,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/navbar/NavBar";
+import NavBar2 from "./components/navbar/NavBar2";
+import Drawer from "./components/navbar/Drawer";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/nextjs";
 import { SignInButton, UserButton } from "@clerk/nextjs";
 
@@ -24,9 +26,8 @@ export default function RootLayout({ children }) {
           </SignedOut>
           <SignedIn>
             <div className="align-top">
-              <NavBar />
+              <Drawer content={children} />
             </div>
-            <div className="bg-white">{children}</div>
           </SignedIn>
         </body>
       </html>

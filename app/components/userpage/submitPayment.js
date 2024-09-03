@@ -7,7 +7,7 @@ async function onSubmit(user) {
 
   const { error } = await client
     .from("payments")
-    .insert({ amount: amount, status: "Pending", author: id });
+    .insert({ amount: amount, status: "Pending", author: id, type: true });
 }
 
 export default function SubmitPayment({ user, users }) {

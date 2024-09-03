@@ -3,14 +3,16 @@ import supabase from "../../utils/supabase";
 async function onSubmit(user) {
   const client = supabase();
   const id = user.id;
-  const amount = document.getElementById("amount").value;
+  const amount = document.getElementById("withdrawal_amount").value;
 
   const { error } = await client
-    .from("withdrawals")
-    .insert({ amount: amount, status: "Pending", author: id });
+    .from("payments")
+    .insert({ amount: amount, status: "Pending", author: id, type: false });
+
+  console.log("error", await error);
 }
 
-export default function SubmitPayment({ user }) {
+export default function SubmitWithdrawal({ user }) {
   return (
     <div className="my-4">
       <div className="flex justify-center">
@@ -44,7 +46,7 @@ export default function SubmitPayment({ user }) {
                 type="number"
                 min={1}
                 step={0.01}
-                id="amount"
+                id="withdrawal_amount"
                 className="bg-slate-300 text-black rounded float-right"
               ></input>
             </div>

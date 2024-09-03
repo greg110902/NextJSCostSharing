@@ -11,7 +11,7 @@ export function useGetPayments() {
 
   useEffect(() => {
     const fetchPayments = async () => {
-      const { data } = await client.from("payments").select();
+      const { data } = await client.from("payments").select().eq("type", true);
       setPayments(data);
       setLoading(false);
     };
@@ -35,7 +35,8 @@ export function useGetUserPayments(userID) {
       const { data } = await client
         .from("payments")
         .select()
-        .eq("author", userID);
+        .eq("author", userID)
+        .eq("type", true);
       setPayments(data);
       setLoading(false);
     };
