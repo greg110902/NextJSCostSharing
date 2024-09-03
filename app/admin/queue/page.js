@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import supabase from "../../utils/supabase";
-import Card from "../../components/userpage/queue/Card";
+import Card from "../../components/admin/AdminQueueCard";
 
 export default function QueuePage({ params }) {
   const [payments, setPayments] = useState([]);

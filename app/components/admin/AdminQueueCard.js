@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import supabase from "../../../utils/supabase";
-import Badge from "./Badge";
+import supabase from "../../utils/supabase";
+import Badge from "../userpage/queue/Badge";
 import { useUser } from "@clerk/nextjs";
-import AcceptRejectButtons from "../../admin/AcceptRejectButtons";
+import AcceptRejectButtons from "./AcceptRejectButtons";
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -48,6 +48,13 @@ export default function Card({ ID, author, amount, date, type, status }) {
         </div>
         <div className="text-slate-900">Amount: £{amount}</div>
         <div className="text-slate-900">On: {date}</div>
+      </div>
+      <div className="flex justify-center">
+        {isSignedIn && user.publicMetadata.role === "admin" ? (
+          <AcceptRejectButtons id={ID} />
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

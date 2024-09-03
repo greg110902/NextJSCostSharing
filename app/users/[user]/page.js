@@ -11,7 +11,7 @@ import {
 } from "../../components/userpage/getOwedUsers";
 import OwedOwingCharts from "../../components/userpage/pieCharts";
 import SubmitPayment from "../../components/userpage/submitPayment";
-import { useGetPayments, useGetUserPayments } from "../../utils/payments";
+import { useGetPayments, useGetWithdrawals } from "../../utils/payments";
 import SubmitWithdrawal from "../../components/userpage/submitWithdrawal";
 
 export default function UserPage({ params }) {
@@ -49,6 +49,7 @@ export default function UserPage({ params }) {
     }
   }, []);
   let userPayments = useGetPayments();
+  let userWithdrawals = useGetWithdrawals();
 
   if (!transactionsLoading && !usersLoading) {
     let userBalances = getUserBalances(transactions, users);
@@ -67,6 +68,14 @@ export default function UserPage({ params }) {
       userBalances.forEach((balance) => {
         if (balance.id === payment.author) {
           balance.balance += payment.amount;
+        }
+      });
+    });
+
+    userWithdrawals.forEach((withdrawal) => {
+      userBalances.forEach((balance) => {
+        if (balance.id === withdrawal.author) {
+          balance.balance -= withdrawal.amount;
         }
       });
     });

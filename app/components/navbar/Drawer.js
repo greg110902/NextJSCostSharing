@@ -1,5 +1,6 @@
 import { UserButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
+import DetailsModal from "./detailsModal";
 
 export default async function Drawer({ content }) {
   const user = await currentUser();
@@ -40,6 +41,9 @@ export default async function Drawer({ content }) {
               <li>
                 <a href={`/users/${await user.id}`}>User</a>
               </li>
+              <li>
+                <a href={`/users/${await user.id}/details`}>Details</a>
+              </li>
               {(await user.publicMetadata.role) === "admin" ? (
                 <li>
                   <a href={`/admin/queue`}>User</a>
@@ -67,6 +71,9 @@ export default async function Drawer({ content }) {
           </li>
           <li>
             <a href={`/users/${await user.id}`}>User</a>
+          </li>
+          <li>
+            <a href={`/users/${await user.id}/details`}>Details</a>
           </li>
           {(await user.publicMetadata.role) === "admin" ? (
             <li>

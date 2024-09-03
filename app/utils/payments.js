@@ -11,7 +11,11 @@ export function useGetPayments() {
 
   useEffect(() => {
     const fetchPayments = async () => {
-      const { data } = await client.from("payments").select().eq("type", true);
+      const { data } = await client
+        .from("payments")
+        .select()
+        .eq("type", true)
+        .eq("status", "Accepted");
       setPayments(data);
       setLoading(false);
     };
@@ -22,6 +26,31 @@ export function useGetPayments() {
   });
 
   return payments;
+}
+
+export function useGetWithdrawals() {
+  const [withdrawals, setWithdrawals] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const client = supabase();
+
+  useEffect(() => {
+    const fetchWithdrawals = async () => {
+      const { data } = await client
+        .from("payments")
+        .select()
+        .eq("type", false)
+        .eq("status", "Accepted");
+      setWithdrawals(data);
+      setLoading(false);
+    };
+
+    if (loading) {
+      fetchWithdrawals();
+    }
+  });
+
+  return withdrawals;
 }
 
 export function useGetUserPayments(userID) {

@@ -4,7 +4,7 @@ export default function DetailsModal() {
   return (
     <div className="mx-5">
       <button
-        className="text-white"
+        className="btn text-white bg-slate-500"
         onClick={() => document.getElementById("my_modal_2").showModal()}
       >
         View bank details
