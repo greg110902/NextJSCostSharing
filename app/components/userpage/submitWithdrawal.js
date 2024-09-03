@@ -24,8 +24,9 @@ export default function SubmitPayment({ user }) {
         <div className="modal-box bg-slate-100">
           <h3 className="font-bold text-lg">Submit withdraw funds request</h3>
           <p>
-            Will not take effect until marked as "Accepted". May be rejected due
-            to low house funds. Withdrawals are first come first serve.
+            Will not take effect until marked as &quot;Accepted&quot;. May be
+            rejected due to low house funds. Withdrawals are first come first
+            serve.
           </p>
           <form id="transactionForm" onSubmit={() => onSubmit(user)}>
             <div className="m-1">
