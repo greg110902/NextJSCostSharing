@@ -64,9 +64,11 @@ export default function UserPage({ params }) {
     });
 
     userPayments.forEach((payment) => {
-      if (payment.author === userID) {
-        currentUserBalance.balance += payment.amount;
-      }
+      userBalances.forEach((balance) => {
+        if (balance.id === payment.author) {
+          balance.balance += payment.amount;
+        }
+      });
     });
 
     if (isSignedIn) {
