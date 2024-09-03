@@ -111,7 +111,7 @@ export default function UserPage({ params }) {
             <></>
           )}
           <a
-            className="btn flex justify-center"
+            className="btn flex justify-center mb-5"
             href={`/users/${userID}/queue`}
           >
             Payment/withdrawal queue
