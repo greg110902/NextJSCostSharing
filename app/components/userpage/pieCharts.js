@@ -19,29 +19,31 @@ const StyledText = styled("text")(({ theme }) => ({
 }));
 
 export default function OwedOwingCharts({ userBalances, users }) {
-  let owingData = [];
+  let owesData = [];
   let owedData = [];
 
   let owedBalance = 0;
-  let owingBalance = 0;
+  let owesBalance = 0;
 
   userBalances.forEach((user) => {
     let userName;
+    let data;
     users.forEach((us) => {
       if (user.id === us.id) {
         userName = us.firstName;
       }
     });
+
     if (user.balance >= 0) {
-      owedBalance += user.balance;
-      owedData.push({
+      owesBalance += user.balance;
+      owesData.push({
         id: user.id,
         value: Math.abs(user.balance),
         label: userName,
       });
     } else {
-      owingBalance -= user.balance;
-      owingData.push({
+      owedBalance -= user.balance;
+      owedData.push({
         id: user.id,
         value: Math.abs(user.balance),
         label: userName,
@@ -49,11 +51,13 @@ export default function OwedOwingCharts({ userBalances, users }) {
     }
   });
 
+  console.log("owes", owesData);
+
   return (
     <div>
       <h1>House is owed:</h1>
       <PieChart
-        series={[{ data: owingData, innerRadius: 40 }]}
+        series={[{ data: owedData, innerRadius: 40 }]}
         width={300}
         height={150}
       >
@@ -61,11 +65,11 @@ export default function OwedOwingCharts({ userBalances, users }) {
       </PieChart>
       <h1>House owes</h1>
       <PieChart
-        series={[{ data: owedData, innerRadius: 40 }]}
+        series={[{ data: owesData, innerRadius: 40 }]}
         width={300}
         height={150}
       >
-        <PieCenterLabel>{"£ " + owingBalance}</PieCenterLabel>
+        <PieCenterLabel>{"£ " + owesBalance}</PieCenterLabel>
       </PieChart>
     </div>
   );

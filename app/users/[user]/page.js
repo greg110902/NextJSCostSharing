@@ -10,6 +10,8 @@ import {
   getUserBalances,
 } from "../../components/userpage/getOwedUsers";
 import OwedOwingCharts from "../../components/userpage/pieCharts";
+import SubmitPayment from "../../components/userpage/submitPayment";
+import { getPayments, getUserPayments } from "../../utils/payments";
 
 export default function UserPage({ params }) {
   const [transactions, setTransactions] = useState([]);
@@ -45,6 +47,7 @@ export default function UserPage({ params }) {
       fetchTransactions();
     }
   }, []);
+  let userPayments = getPayments();
 
   if (!transactionsLoading && !usersLoading) {
     let userBalances = getUserBalances(transactions, users);
@@ -59,31 +62,36 @@ export default function UserPage({ params }) {
       }
     });
 
-    console.log(currentUserBalance);
+    userPayments.forEach((payment) => {
+      if (payment.author === userID) {
+        currentUserBalance.balance += payment.amount;
+      }
+    });
 
     if (isSignedIn) {
       if (user.id != userID) {
         return <>You are not allowed to access this page.</>;
       }
-    }
 
-    return (
-      <div className="justify-center">
-        <Card
-          text={
-            currentUserBalance.balance >= 0
-              ? "The house owes you:"
-              : "You owe the house:"
-          }
-          amount={"£ " + Math.abs(currentUserBalance.balance)}
-        />
-        <div className="flex justify-center">
-          <OwedOwingCharts userBalances={userBalances} users={users} />
+      return (
+        <div className="justify-center">
+          <Card
+            text={
+              currentUserBalance.balance >= 0
+                ? "The house owes you:"
+                : "You owe the house:"
+            }
+            amount={"£ " + Math.abs(currentUserBalance.balance)}
+          />
+          <div className="flex justify-center">
+            <OwedOwingCharts userBalances={userBalances} users={users} />
+          </div>
+          <SubmitPayment user={user} users={users}></SubmitPayment>
         </div>
-      </div>
-    );
-  } else {
-    return <>Loading...</>;
+      );
+    } else {
+      return <>Loading...</>;
+    }
   }
 }
 
