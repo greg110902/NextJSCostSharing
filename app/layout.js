@@ -1,7 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/navbar/NavBar";
-import NavBar2 from "./components/navbar/NavBar2";
 import Drawer from "./components/navbar/Drawer";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/nextjs";
 import { SignInButton, UserButton } from "@clerk/nextjs";
