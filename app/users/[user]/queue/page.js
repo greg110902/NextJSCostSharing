@@ -69,11 +69,11 @@ export default function QueuePage({ params }) {
     });
 
     return (
-      <div className="flex">
+      <div>
         <a className="btn m-3" href={`/users/${userID}`}>
           Back
         </a>
-        <div className="flex">
+        <div>
           <div className="flex flex-wrap justify-center ">
             {queue.map((element) => {
               return (
