@@ -41,12 +41,12 @@ export default function DetailsForm({ user, userData }) {
     <div className="my-5">
       <div className="flex justify-center my-5">
         <form onSubmit={() => onSubmit(user)} className="w-1/2">
-          <div className="border rounded m-2 flex">
+          <div className="border rounded m-2 flex bg-slate-50">
             <label>Account name:</label>
             <div className="flex flex-1 flex-row-reverse">
               <input
                 id="accName"
-                className="align-right"
+                className="align-right bg-slate-300"
                 defaultValue={
                   dataLoaded != undefined ? userData.account_name : ""
                 }
@@ -59,7 +59,7 @@ export default function DetailsForm({ user, userData }) {
             <div className="flex flex-1 flex-row-reverse">
               <input
                 id="sortCode"
-                className="align-right"
+                className="align-right bg-slate-300"
                 defaultValue={dataLoaded != undefined ? userData.sort_code : ""}
                 disabled={dataLoaded != undefined ? true : false}
               />
@@ -70,7 +70,7 @@ export default function DetailsForm({ user, userData }) {
             <div className="flex flex-1 flex-row-reverse">
               <input
                 id="accNo"
-                className="align-right"
+                className="align-right bg-slate-300"
                 defaultValue={
                   dataLoaded != undefined ? userData.account_no : ""
                 }

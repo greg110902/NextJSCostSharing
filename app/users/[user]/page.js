@@ -66,7 +66,7 @@ export default function UserPage({ params }) {
 
     userPayments.forEach((payment) => {
       userBalances.forEach((balance) => {
-        if (balance.id === payment.author) {
+        if (balance.id === payment.author && payment.status === "Accepted") {
           balance.balance += payment.amount;
         }
       });
@@ -74,7 +74,10 @@ export default function UserPage({ params }) {
 
     userWithdrawals.forEach((withdrawal) => {
       userBalances.forEach((balance) => {
-        if (balance.id === withdrawal.author) {
+        if (
+          balance.id === withdrawal.author &&
+          withdrawal.status === "Accepted"
+        ) {
           balance.balance -= withdrawal.amount;
         }
       });
@@ -100,7 +103,10 @@ export default function UserPage({ params }) {
           </div>
           <SubmitPayment user={user} users={users}></SubmitPayment>
           {currentUserBalance.balance >= 0 ? (
-            <SubmitWithdrawal user={user} />
+            <SubmitWithdrawal
+              user={user}
+              maxAmount={currentUserBalance.balance}
+            />
           ) : (
             <></>
           )}

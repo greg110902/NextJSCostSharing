@@ -1,18 +1,7 @@
 import supabase from "../../utils/supabase";
+import UserDetailsUploaded from "../userpage/userDetailsUploaded";
 
-async function onSubmit(user) {
-  const client = supabase();
-  const id = user.id;
-  const amount = document.getElementById("withdrawal_amount").value;
-
-  const { error } = await client
-    .from("payments")
-    .insert({ amount: amount, status: "Pending", author: id, type: false });
-
-  console.log("error", await error);
-}
-
-export default function SubmitWithdrawal({ user }) {
+export default function SubmitWithdrawal({ user, maxAmount }) {
   return (
     <div className="my-4">
       <div className="flex justify-center">
@@ -30,32 +19,7 @@ export default function SubmitWithdrawal({ user }) {
             rejected due to low house funds. Withdrawals are first come first
             serve.
           </p>
-          <form id="transactionForm" onSubmit={() => onSubmit(user)}>
-            <div className="m-1">
-              <label className="m-1 text-black">Author</label>
-              <input
-                id="author"
-                disabled
-                className="bg-slate-300 rounded flex flex-1 float-right"
-                defaultValue={user.firstName}
-              ></input>
-            </div>
-            <div className="m-1">
-              <label className="m-1 text-black">Amount</label>
-              <input
-                type="number"
-                min={1}
-                step={0.01}
-                id="withdrawal_amount"
-                className="bg-slate-300 text-black rounded float-right"
-              ></input>
-            </div>
-            <div className="modal-action">
-              <button className="btn" htmlFor="modal_2" type="submit">
-                Submit
-              </button>
-            </div>
-          </form>
+          <UserDetailsUploaded user={user} maxAmount={maxAmount} />
         </div>
         <label className="modal-backdrop" htmlFor="modal_2"></label>
       </div>
