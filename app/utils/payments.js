@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import supabase from "./supabase";
 
-export function getPayments() {
+export function useGetPayments() {
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -24,7 +24,7 @@ export function getPayments() {
   return payments;
 }
 
-export function getUserPayments(userID) {
+export function useGetUserPayments(userID) {
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(true);
 

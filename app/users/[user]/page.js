@@ -11,7 +11,7 @@ import {
 } from "../../components/userpage/getOwedUsers";
 import OwedOwingCharts from "../../components/userpage/pieCharts";
 import SubmitPayment from "../../components/userpage/submitPayment";
-import { getPayments, getUserPayments } from "../../utils/payments";
+import { useGetPayments, useGetUserPayments } from "../../utils/payments";
 import SubmitWithdrawal from "../../components/userpage/submitWithdrawal";
 
 export default function UserPage({ params }) {
@@ -48,7 +48,7 @@ export default function UserPage({ params }) {
       fetchTransactions();
     }
   }, []);
-  let userPayments = getPayments();
+  let userPayments = useGetPayments();
 
   if (!transactionsLoading && !usersLoading) {
     let userBalances = getUserBalances(transactions, users);
