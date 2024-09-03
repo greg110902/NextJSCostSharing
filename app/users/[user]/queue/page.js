@@ -88,3 +88,5 @@ export default function QueuePage({ params }) {
     return <div>Loading...</div>;
   }
 }
+
+export const runtime = "edge";
