@@ -40,6 +40,13 @@ export default async function Drawer({ content }) {
               <li>
                 <a href={`/users/${await user.id}`}>User</a>
               </li>
+              {(await user.publicMetadata.role) === "admin" ? (
+                <li>
+                  <a href={`/admin/queue`}>User</a>
+                </li>
+              ) : (
+                <></>
+              )}
             </ul>
           </div>
           <UserButton />
@@ -61,7 +68,13 @@ export default async function Drawer({ content }) {
           <li>
             <a href={`/users/${await user.id}`}>User</a>
           </li>
-          {}
+          {(await user.publicMetadata.role) === "admin" ? (
+            <li>
+              <a href={`/admin/queue`}>Admin queue</a>
+            </li>
+          ) : (
+            <></>
+          )}
         </ul>
       </div>
     </div>

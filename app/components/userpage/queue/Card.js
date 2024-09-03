@@ -1,6 +1,8 @@
-import { useClient, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import supabase from "../../../utils/supabase";
 import Badge from "./Badge";
+import { useUser } from "@clerk/nextjs";
+import AcceptRejectButtons from "../../admin/AcceptRejectButtons";
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -23,6 +25,8 @@ export default function Card({ ID, author, amount, date, type, status }) {
 
   const client = supabase();
 
+  const { isSignedIn, user } = useUser();
+
   useEffect(() => {
     const fetchUsers = async () => {
       const { data } = await client.from("users").select();
@@ -44,6 +48,13 @@ export default function Card({ ID, author, amount, date, type, status }) {
         </div>
         <div className="text-slate-900">Amount: £{amount}</div>
         <div className="text-slate-900">On: {date}</div>
+      </div>
+      <div className="flex justify-center">
+        {isSignedIn && user.id === "user_2lL92KrCwhH1RoQcj1aeBQiSASS" ? (
+          <AcceptRejectButtons id={ID} />
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
