@@ -69,23 +69,25 @@ export default function QueuePage({ params }) {
     });
 
     return (
-      <div className="flex">
-        <a className="btn" href={`/users/${userID}`}>
+      <div>
+        <a className="btn m-3" href={`/users/${userID}`}>
           Back
         </a>
-        <div className="flex flex-wrap justify-center ">
-          {queue.map((element) => {
-            return (
-              <Card
-                ID={element.id}
-                author={element.author}
-                amount={element.amount}
-                date={element.created_at}
-                type={element.type}
-                status={element.status}
-              />
-            );
-          })}
+        <div className="flex">
+          <div className="flex flex-wrap justify-center ">
+            {queue.map((element) => {
+              return (
+                <Card
+                  ID={element.id}
+                  author={element.author}
+                  amount={element.amount}
+                  date={element.created_at}
+                  type={element.type}
+                  status={element.status}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     );
