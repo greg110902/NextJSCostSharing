@@ -12,6 +12,7 @@ import {
 import OwedOwingCharts from "../../components/userpage/pieCharts";
 import SubmitPayment from "../../components/userpage/submitPayment";
 import { getPayments, getUserPayments } from "../../utils/payments";
+import SubmitWithdrawal from "../../components/userpage/submitWithdrawal";
 
 export default function UserPage({ params }) {
   const [transactions, setTransactions] = useState([]);
@@ -87,6 +88,11 @@ export default function UserPage({ params }) {
             <OwedOwingCharts userBalances={userBalances} users={users} />
           </div>
           <SubmitPayment user={user} users={users}></SubmitPayment>
+          {currentUserBalance.balance >= 0 ? (
+            <SubmitWithdrawal user={user} />
+          ) : (
+            <></>
+          )}
         </div>
       );
     } else {
