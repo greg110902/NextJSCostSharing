@@ -46,7 +46,7 @@ export default async function Drawer({ content }) {
               </li>
               {(await user.publicMetadata.role) === "admin" ? (
                 <li>
-                  <a href={`/admin/queue`}>User</a>
+                  <a href={`/admin/queue`}>Admin queue</a>
                 </li>
               ) : (
                 <></>

@@ -11,7 +11,7 @@ export default async function NavBar() {
       <SignedIn>
         <NavButton name="Transactions" loc="/" />
         <NavButton name="User" loc={`/users/${user.id}`} />
-        {user.id === "user_2lL92KrCwhH1RoQcj1aeBQiSASS" ? (
+        {user.publicMetadata.role === "admin" ? (
           <NavButton name="Direct transactions" loc="/" />
         ) : null}
         <div className="flex flex-1 flex-row-reverse">

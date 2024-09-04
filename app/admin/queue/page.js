@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import supabase from "../../utils/supabase";
 import Card from "../../components/admin/AdminQueueCard";
+import { useUser } from "@clerk/nextjs";
 
 export default function QueuePage({ params }) {
   const [payments, setPayments] = useState([]);
@@ -11,6 +12,7 @@ export default function QueuePage({ params }) {
   const [withdrawalsLoading, setWithdrawalsLoading] = useState(true);
 
   const userID = params.user;
+  const { isSignedIn, user } = useUser();
 
   const client = supabase();
 
@@ -60,22 +62,26 @@ export default function QueuePage({ params }) {
       return 0;
     });
 
-    return (
-      <div className="flex flex-wrap justify-center ">
-        {queue.map((element) => {
-          return (
-            <Card
-              ID={element.id}
-              author={element.author}
-              amount={element.amount}
-              date={element.created_at}
-              type={element.type}
-              status={element.status}
-            />
-          );
-        })}
-      </div>
-    );
+    if (isSignedIn && user.publicMetadata.role === "admin") {
+      return (
+        <div className="flex flex-wrap justify-center ">
+          {queue.map((element) => {
+            return (
+              <Card
+                ID={element.id}
+                author={element.author}
+                amount={element.amount}
+                date={element.created_at}
+                type={element.type}
+                status={element.status}
+              />
+            );
+          })}
+        </div>
+      );
+    } else {
+      return <>You do not have permission to view this page.</>;
+    }
   } else {
     return <div>Loading...</div>;
   }
