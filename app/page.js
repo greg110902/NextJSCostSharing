@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import supabase from "./utils/supabase";
 import PayerForm from "./components/transaction/payerForm";
 import { SignedIn, useUser } from "@clerk/nextjs";
+import NotAllSignedUp from "./components/transactions/notHouseSignedUp";
 //import { currentUser } from "@clerk/nextjs";
 
 function userIDToName(userID, users) {
@@ -99,9 +100,13 @@ export default function Home() {
     return (
       <div>
         <div className="flex justify-center">
-          <label htmlFor="my_modal_7" className="btn">
-            Submit transaction
-          </label>
+          {users.length != 7 ? (
+            <NotAllSignedUp />
+          ) : (
+            <label htmlFor="my_modal_7" className="btn">
+              Submit transaction
+            </label>
+          )}
         </div>
 
         <input type="checkbox" id="my_modal_7" className="modal-toggle" />
