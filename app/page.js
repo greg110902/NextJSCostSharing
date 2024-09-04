@@ -7,15 +7,6 @@ import PayerForm from "./components/transaction/payerForm";
 import { SignedIn, useUser } from "@clerk/nextjs";
 //import { currentUser } from "@clerk/nextjs";
 
-function newID(transactions) {
-  var IDs = [];
-  transactions.map((transaction) => {
-    IDs.push(transaction["id"]);
-  });
-
-  return Math.max(...IDs) + 1;
-}
-
 function userIDToName(userID, users) {
   const u = users.map((user) => {
     if (user.id === userID) {
@@ -62,7 +53,6 @@ async function submitForm(transactions, everyoneChecked, user, users) {
   }
 
   const { error } = await client.from("transactions").insert({
-    id: newID(transactions),
     author: user.id,
     affecting: checked,
     amount: amount,
