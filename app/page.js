@@ -29,7 +29,7 @@ async function addUser(user) {
     .select();
 }
 
-async function submitForm(router, everyoneChecked, user, users) {
+async function submitForm(everyoneChecked, user, users) {
   let author = document.getElementById("author").value;
   let title = document.getElementById("title").value;
   let amount = document.getElementById("amount").value;
@@ -103,6 +103,7 @@ export default function Home() {
     if (submitButton) {
       submitButton.addEventListener("click", function (event) {
         event.preventDefault();
+        console.log("arrived at event");
 
         submitForm(everyoneChecked, user, users);
       });

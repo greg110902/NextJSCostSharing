@@ -5,17 +5,17 @@
   "description": "54 Belmont Road finance management application.",
   "icons": [
     {
-      "src": "./public/logo72x72.png",
+      "src": "./public72.png",
       "sizes": "72x72",
       "type": "image/png"
     },
     {
-      "src": "./public/logo192x192.png",
+      "src": "./public/192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "./public/logo512x512.png",
+      "src": "./public/512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
