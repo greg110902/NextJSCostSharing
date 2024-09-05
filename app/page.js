@@ -114,7 +114,7 @@ export default function Home() {
 
   if (loading) {
     return <div>Loading...</div>;
-  } else if (isSignedIn && isReady) {
+  } else if (isSignedIn) {
     return (
       <div>
         <div className="flex justify-center">
