@@ -98,13 +98,14 @@ export default function Home() {
   if (loading) {
     return <div>Loading...</div>;
   } else if (isSignedIn) {
-    document
-      .getElementById("submit")
-      .addEventListener("click", function (event) {
+    const submitButton = document.getElementById("submit");
+    if (submitButton) {
+      submitButton.addEventListener("click", function (event) {
         event.preventDefault();
 
         submitForm(everyoneChecked, user, users);
       });
+    }
     return (
       <div>
         <div className="flex justify-center">
