@@ -95,10 +95,11 @@ export default function Home() {
     }
   }, []);
 
+  const submitButton = document.getElementById("submit");
+
   if (loading) {
     return <div>Loading...</div>;
   } else if (isSignedIn) {
-    const submitButton = document.getElementById("submit");
     if (submitButton) {
       submitButton.addEventListener("click", function (event) {
         event.preventDefault();
@@ -122,12 +123,7 @@ export default function Home() {
         <div className="modal bg-slate-100" role="dialog">
           <div className="modal-box bg-slate-100">
             <h3 className="font-bold text-lg">Add transaction</h3>
-            <form
-              id="transactionForm"
-              onSubmit={() =>
-                submitForm(transactions, everyoneChecked, user, users)
-              }
-            >
+            <form id="transactionForm">
               <div className="m-1">
                 <label className="m-1 text-black">Author</label>
                 <input
@@ -163,12 +159,7 @@ export default function Home() {
                 {!everyoneChecked ? <PayerForm currentID={user.id} /> : <></>}
               </div>
               <div className="modal-action">
-                <button
-                  className="btn"
-                  id="submit"
-                  htmlFor="my_modal_7"
-                  type="submit"
-                >
+                <button className="btn" id="submit" htmlFor="my_modal_7">
                   Submit
                 </button>
               </div>
