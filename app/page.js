@@ -6,6 +6,7 @@ import supabase from "./utils/supabase";
 import PayerForm from "./components/transaction/payerForm";
 import { SignedIn, useUser } from "@clerk/nextjs";
 import NotAllSignedUp from "./components/transactions/notHouseSignedUp";
+import { useRouter } from "next/router";
 //import { currentUser } from "@clerk/nextjs";
 
 function userIDToName(userID, users) {
@@ -53,12 +54,15 @@ async function submitForm(transactions, everyoneChecked, user, users) {
     checked = ids;
   }
 
+  const router = useRouter();
+
   const { error } = await client.from("transactions").insert({
     author: user.id,
     affecting: checked,
     amount: amount,
     title: title,
   });
+  router.reload();
 }
 
 export default function Home() {
@@ -99,6 +103,7 @@ export default function Home() {
       .getElementById("submit")
       .addEventListener("click", function (event) {
         event.preventDefault();
+
         submitForm(transactions, everyoneChecked, user, users);
       });
   } catch {
