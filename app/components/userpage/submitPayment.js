@@ -1,3 +1,5 @@
+"use client"
+
 import supabase from "../../utils/supabase";
 
 async function onSubmit(user) {

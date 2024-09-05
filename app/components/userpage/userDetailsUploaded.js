@@ -47,6 +47,7 @@ export default function UserDetailsUploaded({ user, maxAmount }) {
         event.preventDefault();
 
         onSubmit(user);
+        location.reload();
       });
   } catch {
     console.log("not loaded yet");
