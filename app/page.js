@@ -29,7 +29,7 @@ async function addUser(user) {
     .select();
 }
 
-async function submitForm(transactions, everyoneChecked, user, users) {
+async function submitForm(router, everyoneChecked, user, users) {
   let author = document.getElementById("author").value;
   let title = document.getElementById("title").value;
   let amount = document.getElementById("amount").value;
@@ -53,9 +53,6 @@ async function submitForm(transactions, everyoneChecked, user, users) {
     console.log(ids);
     checked = ids;
   }
-
-  const router = useRouter();
-
   const { error } = await client.from("transactions").insert({
     author: user.id,
     affecting: checked,
@@ -72,6 +69,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   const { isSignedIn, user } = useUser();
+  const router = useRouter();
 
   const client = supabase();
 
@@ -104,7 +102,7 @@ export default function Home() {
       .addEventListener("click", function (event) {
         event.preventDefault();
 
-        submitForm(transactions, everyoneChecked, user, users);
+        submitForm(router, everyoneChecked, user, users);
       });
   } catch {
     console.log("not loaded yet");
