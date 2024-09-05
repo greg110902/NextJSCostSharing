@@ -6,7 +6,7 @@ import supabase from "./utils/supabase";
 import PayerForm from "./components/transaction/payerForm";
 import { SignedIn, useUser } from "@clerk/nextjs";
 import NotAllSignedUp from "./components/transactions/notHouseSignedUp";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 //import { currentUser } from "@clerk/nextjs";
 
 function userIDToName(userID, users) {
