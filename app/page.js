@@ -67,6 +67,7 @@ export default function Home() {
   const [everyoneChecked, setEveryoneChecked] = useState(true);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isReady, setIsReady] = useState(false);
 
   const { isSignedIn, user } = useUser();
   const router = useRouter();
@@ -94,6 +95,9 @@ export default function Home() {
       fetchTransactions();
       fetchUsers();
     }
+    if (router.isReady) {
+      setIsReady(true);
+    }
   }, []);
 
   try {
@@ -110,7 +114,7 @@ export default function Home() {
 
   if (loading) {
     return <div>Loading...</div>;
-  } else if (isSignedIn) {
+  } else if (isSignedIn && isReady) {
     return (
       <div>
         <div className="flex justify-center">
