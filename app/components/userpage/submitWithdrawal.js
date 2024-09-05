@@ -2,6 +2,7 @@ import supabase from "../../utils/supabase";
 import UserDetailsUploaded from "../userpage/userDetailsUploaded";
 
 export default function SubmitWithdrawal({ user, maxAmount }) {
+  
   return (
     <div className="my-4">
       <div className="flex justify-center">

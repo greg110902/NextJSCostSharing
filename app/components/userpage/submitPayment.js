@@ -11,6 +11,18 @@ async function onSubmit(user) {
 }
 
 export default function SubmitPayment({ user, users }) {
+  try {
+    document
+      .getElementById("submit")
+      .addEventListener("click", function (event) {
+        event.preventDefault();
+
+        onSubmit(user);
+        location.reload();
+      });
+  } catch {
+    console.log("not loaded yet");
+  }
   return (
     <div className="my-4">
       <div className="flex justify-center">
@@ -44,7 +56,12 @@ export default function SubmitPayment({ user, users }) {
               ></input>
             </div>
             <div className="modal-action">
-              <button className="btn" htmlFor="modal_1" type="submit">
+              <button
+                className="btn"
+                id="submit"
+                htmlFor="modal_1"
+                type="submit"
+              >
                 Submit
               </button>
             </div>

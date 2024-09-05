@@ -40,6 +40,18 @@ export default function UserDetailsUploaded({ user, maxAmount }) {
     }
   });
 
+  try {
+    document
+      .getElementById("submit")
+      .addEventListener("click", function (event) {
+        event.preventDefault();
+
+        onSubmit(user);
+      });
+  } catch {
+    console.log("not loaded yet");
+  }
+
   if (userAccount.account_no === null) {
     return (
       <div className="my-3 text-red-800">
@@ -71,7 +83,7 @@ export default function UserDetailsUploaded({ user, maxAmount }) {
             ></input>
           </div>
           <div className="modal-action">
-            <button className="btn" htmlFor="modal_2" type="submit">
+            <button className="btn" id="submit" htmlFor="modal_2" type="submit">
               Submit
             </button>
           </div>
