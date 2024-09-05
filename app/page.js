@@ -67,10 +67,8 @@ export default function Home() {
   const [everyoneChecked, setEveryoneChecked] = useState(true);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isReady, setIsReady] = useState(false);
 
   const { isSignedIn, user } = useUser();
-  const router = useRouter();
 
   const client = supabase();
 
@@ -95,26 +93,18 @@ export default function Home() {
       fetchTransactions();
       fetchUsers();
     }
-    if (router.isReady) {
-      setIsReady(true);
-    }
   }, []);
 
-  try {
+  if (loading) {
+    return <div>Loading...</div>;
+  } else if (isSignedIn) {
     document
       .getElementById("submit")
       .addEventListener("click", function (event) {
         event.preventDefault();
 
-        submitForm(router, everyoneChecked, user, users);
+        submitForm(everyoneChecked, user, users);
       });
-  } catch {
-    console.log("not loaded yet");
-  }
-
-  if (loading) {
-    return <div>Loading...</div>;
-  } else if (isSignedIn) {
     return (
       <div>
         <div className="flex justify-center">
