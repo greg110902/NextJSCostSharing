@@ -94,13 +94,24 @@ export default function Home() {
     }
   }, []);
 
+  try {
+    document
+      .getElementById("submit")
+      .addEventListener("click", function (event) {
+        event.preventDefault();
+        submitForm(transactions, everyoneChecked, user, users);
+      });
+  } catch {
+    console.log("not loaded yet");
+  }
+
   if (loading) {
     return <div>Loading...</div>;
   } else if (isSignedIn) {
     return (
       <div>
         <div className="flex justify-center">
-          {users.length != 7 ? (
+          {users.length > 7 ? (
             <NotAllSignedUp />
           ) : (
             <label htmlFor="my_modal_7" className="btn">
@@ -154,7 +165,12 @@ export default function Home() {
                 {!everyoneChecked ? <PayerForm currentID={user.id} /> : <></>}
               </div>
               <div className="modal-action">
-                <button className="btn" htmlFor="my_modal_7" type="submit">
+                <button
+                  className="btn"
+                  id="submit"
+                  htmlFor="my_modal_7"
+                  type="submit"
+                >
                   Submit
                 </button>
               </div>
