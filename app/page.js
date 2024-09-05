@@ -59,7 +59,7 @@ async function submitForm(router, everyoneChecked, user, users) {
     amount: amount,
     title: title,
   });
-  router.refresh();
+  location.reload();
 }
 
 export default function Home() {
