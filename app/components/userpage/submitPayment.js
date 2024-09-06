@@ -7,9 +7,13 @@ async function onSubmit(user) {
   const id = user.id;
   const amount = document.getElementById("amount").value;
 
-  const { error } = await client
-    .from("payments")
-    .insert({ amount: amount, status: "Pending", author: id, type: true });
+  const { error } = await client.from("payments").insert({
+    amount: amount,
+    status: "Pending",
+    author: id,
+    type: true,
+    new: true,
+  });
 
   location.reload();
 }

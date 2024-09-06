@@ -21,9 +21,15 @@ async function onSubmit(user) {
 
   const { error } = await client
     .from("payments")
-    .insert({ amount: amount, status: "Pending", author: id, type: false });
+    .insert({
+      amount: amount,
+      status: "Pending",
+      author: id,
+      type: false,
+      new: true,
+    });
 
-  location.reload()
+  location.reload();
 }
 
 export default function UserDetailsUploaded({ user, maxAmount }) {
@@ -51,7 +57,13 @@ export default function UserDetailsUploaded({ user, maxAmount }) {
   } else {
     return (
       <div>
-        <form id="transactionForm" onSubmit={(e) =>{e.preventDefault(); onSubmit(user)}}>
+        <form
+          id="transactionForm"
+          onSubmit={(e) => {
+            e.preventDefault();
+            onSubmit(user);
+          }}
+        >
           <div className="m-1">
             <label className="m-1 text-black">User</label>
             <input
