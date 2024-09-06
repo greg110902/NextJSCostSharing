@@ -10,20 +10,11 @@ async function onSubmit(user) {
   const { error } = await client
     .from("payments")
     .insert({ amount: amount, status: "Pending", author: id, type: true });
+
+  location.reload();
 }
 
 export default function SubmitPayment({ user, users }) {
-  const submitButton = document.getElementById("submit");
-
-  if (submitButton) {
-    submitButton.addEventListener("click", function (event) {
-      event.preventDefault();
-
-      onSubmit(user);
-      location.reload();
-    });
-  }
-
   return (
     <div className="my-4">
       <div className="flex justify-center">
@@ -36,7 +27,13 @@ export default function SubmitPayment({ user, users }) {
       <div className="modal bg-slate-100" role="dialog">
         <div className="modal-box bg-slate-100">
           <h3 className="font-bold text-lg">Pay into house fund</h3>
-          <form id="transactionForm" onSubmit={() => onSubmit(user)}>
+          <form
+            id="transactionForm"
+            onSubmit={(e) => {
+              e.preventDefault();
+              onSubmit(user);
+            }}
+          >
             <div className="m-1">
               <label className="m-1 text-black">Author</label>
               <input
