@@ -18,7 +18,7 @@ async function onSubmit(user) {
     .update({ account_name: accName, account_no: accNo, sort_code: sortCode })
     .eq("id", user.id);
 
-  console.log(error);
+  location.reload();
 }
 
 export default function DetailsForm({ user, userData }) {
@@ -40,7 +40,13 @@ export default function DetailsForm({ user, userData }) {
   return (
     <div className="my-5">
       <div className="flex justify-center my-5">
-        <form onSubmit={() => onSubmit(user)} className="w-1/2">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            onSubmit(user);
+          }}
+          className="w-1/2"
+        >
           <div className="border rounded m-2 flex bg-slate-50">
             <label>Account name:</label>
             <div className="flex flex-1 flex-row-reverse">
