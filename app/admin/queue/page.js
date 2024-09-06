@@ -30,19 +30,18 @@ export default function QueuePage({ params }) {
 
   let queue = [];
 
-  if (all) {
-    payments.forEach((payment) => {
-      queue.push(payment);
-    });
-  } else {
-    payments.forEach((payment) => {
-      if (payment.new === true) {
-        queue.push(payment);
-      }
-    });
-  }
-
   if (!paymentsLoading) {
+    if (all) {
+      payments.forEach((payment) => {
+        queue.push(payment);
+      });
+    } else {
+      payments.forEach((payment) => {
+        if (payment.new === true) {
+          queue.push(payment);
+        }
+      });
+    }
     if (isSignedIn && user.publicMetadata.role === "admin") {
       return (
         <div className="flex flex-wrap justify-center ">
