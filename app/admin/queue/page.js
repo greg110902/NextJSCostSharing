@@ -23,7 +23,7 @@ export default function QueuePage({ params }) {
       setPaymentsLoading(false);
     };
 
-    if (withdrawalsLoading && paymentsLoading) {
+    if (paymentsLoading) {
       fetchPayments();
     }
   });
