@@ -22,6 +22,8 @@ async function onSubmit(user) {
   const { error } = await client
     .from("payments")
     .insert({ amount: amount, status: "Pending", author: id, type: false });
+
+  location.reload()
 }
 
 export default function UserDetailsUploaded({ user, maxAmount }) {
@@ -40,19 +42,6 @@ export default function UserDetailsUploaded({ user, maxAmount }) {
     }
   });
 
-  try {
-    document
-      .getElementById("submit")
-      .addEventListener("click", function (event) {
-        event.preventDefault();
-
-        onSubmit(user);
-        location.reload();
-      });
-  } catch {
-    console.log("not loaded yet");
-  }
-
   if (userAccount.account_no === null) {
     return (
       <div className="my-3 text-red-800">
@@ -62,7 +51,7 @@ export default function UserDetailsUploaded({ user, maxAmount }) {
   } else {
     return (
       <div>
-        <form id="transactionForm" onSubmit={() => onSubmit(user)}>
+        <form id="transactionForm" onSubmit={(e) =>{e.preventDefault(); onSubmit(user)}}>
           <div className="m-1">
             <label className="m-1 text-black">User</label>
             <input
