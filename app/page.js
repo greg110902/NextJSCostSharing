@@ -59,6 +59,9 @@ async function submitForm(everyoneChecked, user, users) {
     amount: amount,
     title: title,
   });
+  if (error) {
+    console.log(error);
+  }
   location.reload();
 }
 
@@ -160,7 +163,12 @@ export default function Home() {
                 {!everyoneChecked ? <PayerForm currentID={user.id} /> : <></>}
               </div>
               <div className="modal-action">
-                <button className="btn" id="submit" htmlFor="my_modal_7">
+                <button
+                  className="btn"
+                  id="submit"
+                  type="submit"
+                  htmlFor="my_modal_7"
+                >
                   Submit
                 </button>
               </div>
