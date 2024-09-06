@@ -51,7 +51,7 @@ export default function DetailsForm({ user, userData }) {
             <label>Account name:</label>
             <input
               id="accName"
-              className="flex flex-1 float-right text-black rounded bg-slate-200"
+              className="flex float-right text-black rounded bg-slate-200"
               defaultValue={
                 dataLoaded != undefined ? userData.account_name : ""
               }
@@ -62,7 +62,7 @@ export default function DetailsForm({ user, userData }) {
             <label>Sort code:</label>
             <input
               id="sortCode"
-              className="flex flex-1 float-right text-black rounded bg-slate-200"
+              className="flex float-right text-black rounded bg-slate-200"
               defaultValue={dataLoaded != undefined ? userData.sort_code : ""}
               disabled={dataLoaded != undefined ? true : false}
             />
@@ -71,7 +71,7 @@ export default function DetailsForm({ user, userData }) {
             <label>Account number:</label>
             <input
               id="accNo"
-              className="flex flex-1 float-right text-black rounded bg-slate-200"
+              className="flex float-right text-black rounded bg-slate-200"
               defaultValue={dataLoaded != undefined ? userData.account_no : ""}
               disabled={dataLoaded != undefined ? true : false}
             />
