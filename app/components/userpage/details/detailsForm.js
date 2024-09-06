@@ -45,7 +45,7 @@ export default function DetailsForm({ user, userData }) {
             e.preventDefault();
             onSubmit(user);
           }}
-          className="w-1/2"
+          className="w-3/4"
         >
           <div className="border rounded m-2 bg-slate-50">
             <label>Account name:</label>
