@@ -42,6 +42,7 @@ export default function QueuePage({ params }) {
         }
       });
     }
+    console.log("QUEUE", queue);
     if (isSignedIn && user.publicMetadata.role === "admin") {
       return (
         <div className="flex flex-wrap justify-center ">
