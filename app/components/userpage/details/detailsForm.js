@@ -47,42 +47,34 @@ export default function DetailsForm({ user, userData }) {
           }}
           className="w-1/2"
         >
-          <div className="border rounded m-2 flex bg-slate-50">
+          <div className="border rounded m-2 bg-slate-50">
             <label>Account name:</label>
-            <div className="flex flex-1 flex-row-reverse">
-              <input
-                id="accName"
-                className="float-right text-black rounded bg-slate-200"
-                defaultValue={
-                  dataLoaded != undefined ? userData.account_name : ""
-                }
-                disabled={dataLoaded != undefined ? true : false}
-              />
-            </div>
+            <input
+              id="accName"
+              className="flex flex-1 float-right text-black rounded bg-slate-200"
+              defaultValue={
+                dataLoaded != undefined ? userData.account_name : ""
+              }
+              disabled={dataLoaded != undefined ? true : false}
+            />
           </div>
-          <div className="border rounded m-2 flex">
+          <div className="border rounded m-2 bg-slate-50">
             <label>Sort code:</label>
-            <div className="flex flex-1 flex-row-reverse">
-              <input
-                id="sortCode"
-                className="float-right text-black rounded bg-slate-200"
-                defaultValue={dataLoaded != undefined ? userData.sort_code : ""}
-                disabled={dataLoaded != undefined ? true : false}
-              />
-            </div>
+            <input
+              id="sortCode"
+              className="flex flex-1 float-right text-black rounded bg-slate-200"
+              defaultValue={dataLoaded != undefined ? userData.sort_code : ""}
+              disabled={dataLoaded != undefined ? true : false}
+            />
           </div>
-          <div className="border rounded m-2 flex">
+          <div className="border rounded m-2 bg-slate-50">
             <label>Account number:</label>
-            <div className="flex flex-1 flex-row-reverse">
-              <input
-                id="accNo"
-                className="float-right text-black rounded bg-slate-200"
-                defaultValue={
-                  dataLoaded != undefined ? userData.account_no : ""
-                }
-                disabled={dataLoaded != undefined ? true : false}
-              />
-            </div>
+            <input
+              id="accNo"
+              className="flex flex-1 float-right text-black rounded bg-slate-200"
+              defaultValue={dataLoaded != undefined ? userData.account_no : ""}
+              disabled={dataLoaded != undefined ? true : false}
+            />
           </div>
           <div>
             <button className="btn" type="submit">
