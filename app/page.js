@@ -98,13 +98,14 @@ export default function Home() {
     }
   }, []);
 
-  const submitButton = document.getElementById("submit");
+  const form = document.getElementById("transactionForm");
 
   if (loading) {
     return <div>Loading...</div>;
   } else if (isSignedIn) {
-    if (submitButton && process.browser) {
-      submitButton.addEventListener("click", function (event) {
+    console.log("form", form);
+    if (form && process.browser) {
+      form.addEventListener("submit", function (event) {
         event.preventDefault();
         console.log("arrived at event");
 
@@ -163,12 +164,7 @@ export default function Home() {
                 {!everyoneChecked ? <PayerForm currentID={user.id} /> : <></>}
               </div>
               <div className="modal-action">
-                <button
-                  className="btn"
-                  id="submit"
-                  type="submit"
-                  htmlFor="my_modal_7"
-                >
+                <button className="btn" type="submit" htmlFor="my_modal_7">
                   Submit
                 </button>
               </div>
