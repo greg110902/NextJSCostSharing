@@ -5,12 +5,11 @@ import supabase from "../../utils/supabase";
 import Card from "../../components/admin/AdminQueueCard";
 import { useUser } from "@clerk/nextjs";
 
-export default function QueuePage({ params }) {
+export default function QueuePage() {
   const [payments, setPayments] = useState([]);
   const [paymentsLoading, setPaymentsLoading] = useState(true);
   const [all, setAll] = useState(true);
 
-  const userID = params.user;
   const { isSignedIn, user } = useUser();
 
   const client = supabase();
@@ -47,18 +46,24 @@ export default function QueuePage({ params }) {
       return (
         <div className="flex flex-wrap justify-center ">
           <input type="checkbox" className="toggle" onClick={setAll(!all)} />
-          {queue.map((element) => {
-            return (
-              <Card
-                ID={element.id}
-                author={element.author}
-                amount={element.amount}
-                date={element.created_at}
-                type={element.type}
-                status={element.status}
-              />
-            );
-          })}
+          <>
+            {queue.length > 0 ? (
+              queue.map((element) => {
+                return (
+                  <Card
+                    ID={element.id}
+                    author={element.author}
+                    amount={element.amount}
+                    date={element.created_at}
+                    type={element.type}
+                    status={element.status}
+                  />
+                );
+              })
+            ) : (
+              <></>
+            )}
+          </>
         </div>
       );
     } else {
