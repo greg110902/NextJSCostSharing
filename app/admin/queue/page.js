@@ -45,12 +45,6 @@ export default function QueuePage() {
     if (isSignedIn && user.publicMetadata.role === "admin") {
       return (
         <div className="flex flex-wrap justify-center ">
-          <input
-            type="checkbox"
-            className="toggle"
-            defaultChecked
-            onClick={setAll(!all)}
-          />
           <>
             {queue.length > 0 ? (
               queue.map((element) => {
