@@ -7,9 +7,8 @@ import { useUser } from "@clerk/nextjs";
 
 export default function QueuePage({ params }) {
   const [payments, setPayments] = useState([]);
-  const [withdrawals, setWithdrawals] = useState([]);
   const [paymentsLoading, setPaymentsLoading] = useState(true);
-  const [withdrawalsLoading, setWithdrawalsLoading] = useState(true);
+  const [all, setAll] = useState(true);
 
   const userID = params.user;
   const { isSignedIn, user } = useUser();
@@ -18,53 +17,36 @@ export default function QueuePage({ params }) {
 
   useEffect(() => {
     const fetchPayments = async () => {
-      const { data } = await client.from("payments").select().eq("type", true);
+      const { data } = await client.from("payments").select();
 
       setPayments(data);
       setPaymentsLoading(false);
     };
-    const fetchWithdrawals = async () => {
-      const { data } = await client.from("payments").select().eq("type", false);
-
-      setWithdrawals(data);
-      setWithdrawalsLoading(false);
-    };
 
     if (withdrawalsLoading && paymentsLoading) {
       fetchPayments();
-      fetchWithdrawals();
     }
   });
 
-  if (!withdrawalsLoading && !paymentsLoading) {
-    let queue = [];
-    if (payments != null) {
-      payments.forEach((payment) => {
-        queue.push(payment);
-      });
-    }
+  let queue = [];
 
-    if (withdrawals != null) {
-      withdrawals.forEach((withdrawal) => {
-        queue.push(withdrawal);
-      });
-    }
-
-    console.log("queue", queue);
-
-    queue.sort((a, b) => {
-      if (a.created_at < b.created_at) {
-        return -1;
-      }
-      if (a.created_at < b.created_at) {
-        return 1;
-      }
-      return 0;
+  if (all) {
+    payments.forEach((payment) => {
+      queue.push(payment);
     });
+  } else {
+    payments.forEach((payment) => {
+      if (payment.new === true) {
+        queue.push(payment);
+      }
+    });
+  }
 
+  if (!paymentsLoading) {
     if (isSignedIn && user.publicMetadata.role === "admin") {
       return (
         <div className="flex flex-wrap justify-center ">
+          <input type="checkbox" className="toggle" onClick={setAll(!all)} />
           {queue.map((element) => {
             return (
               <Card

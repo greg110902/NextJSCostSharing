@@ -4,10 +4,8 @@ import Card from "./components/transactions/Card";
 import { useEffect, useState } from "react";
 import supabase from "./utils/supabase";
 import PayerForm from "./components/transaction/payerForm";
-import { SignedIn, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import NotAllSignedUp from "./components/transactions/notHouseSignedUp";
-import { useRouter } from "next/navigation";
-//import { currentUser } from "@clerk/nextjs";
 
 function userIDToName(userID, users) {
   const u = users.map((user) => {
