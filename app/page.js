@@ -70,7 +70,6 @@ export default function Home() {
   const [everyoneChecked, setEveryoneChecked] = useState(true);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [form, setForm] = useState([]);
 
   const { isSignedIn, user } = useUser();
 
@@ -97,28 +96,18 @@ export default function Home() {
       fetchTransactions();
       fetchUsers();
     }
-    setForm(document.getElementById("transactionForm"));
   }, []);
 
   if (loading) {
     return <div>Loading...</div>;
   } else if (isSignedIn) {
-    console.log("form", form);
-    if (form && process.browser) {
-      form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        console.log("arrived at event");
-
-        submitForm(everyoneChecked, user, users);
-      });
-    }
     return (
       <div>
         <div className="flex justify-center">
           {users.length > 7 ? (
             <NotAllSignedUp />
           ) : (
-            <label htmlFor="my_modal_7" className="btn">
+            <label id="modalButton" htmlFor="my_modal_7" className="btn">
               Submit transaction
             </label>
           )}
@@ -128,7 +117,13 @@ export default function Home() {
         <div className="modal bg-slate-100" role="dialog">
           <div className="modal-box bg-slate-100">
             <h3 className="font-bold text-lg">Add transaction</h3>
-            <form id="transactionForm">
+            <form
+              id="transactionForm"
+              onSubmit={(e) => {
+                e.preventDefault;
+                submitForm(everyoneChecked, user, users);
+              }}
+            >
               <div className="m-1">
                 <label className="m-1 text-black">Author</label>
                 <input
