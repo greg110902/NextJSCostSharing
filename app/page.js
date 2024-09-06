@@ -103,7 +103,7 @@ export default function Home() {
   if (loading) {
     return <div>Loading...</div>;
   } else if (isSignedIn) {
-    if (submitButton) {
+    if (submitButton && process.browser) {
       submitButton.addEventListener("click", function (event) {
         event.preventDefault();
         console.log("arrived at event");
