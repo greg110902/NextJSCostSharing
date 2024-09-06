@@ -14,7 +14,7 @@ async function onSubmit(user) {
   location.reload();
 }
 
-export default function SubmitPayment({ user, users }) {
+export default function SubmitPayment({ user }) {
   return (
     <div className="my-4">
       <div className="flex justify-center">
@@ -54,12 +54,7 @@ export default function SubmitPayment({ user, users }) {
               ></input>
             </div>
             <div className="modal-action">
-              <button
-                className="btn"
-                id="submit"
-                htmlFor="modal_1"
-                type="submit"
-              >
+              <button className="btn" htmlFor="modal_1" type="submit">
                 Submit
               </button>
             </div>
