@@ -104,7 +104,7 @@ export default function Home() {
     return (
       <div>
         <div className="flex justify-center">
-          {users.length > 7 ? (
+          {users.length != 7 ? (
             <NotAllSignedUp />
           ) : (
             <label id="modalButton" htmlFor="my_modal_7" className="btn">
