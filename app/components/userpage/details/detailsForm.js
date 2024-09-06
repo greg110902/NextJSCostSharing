@@ -52,7 +52,7 @@ export default function DetailsForm({ user, userData }) {
             <div className="flex flex-1 flex-row-reverse">
               <input
                 id="accName"
-                className="align-right bg-slate-300"
+                className="float-right text-black rounded bg-slate-200"
                 defaultValue={
                   dataLoaded != undefined ? userData.account_name : ""
                 }
@@ -65,7 +65,7 @@ export default function DetailsForm({ user, userData }) {
             <div className="flex flex-1 flex-row-reverse">
               <input
                 id="sortCode"
-                className="align-right bg-slate-300"
+                className="float-right text-black rounded bg-slate-200"
                 defaultValue={dataLoaded != undefined ? userData.sort_code : ""}
                 disabled={dataLoaded != undefined ? true : false}
               />
@@ -76,7 +76,7 @@ export default function DetailsForm({ user, userData }) {
             <div className="flex flex-1 flex-row-reverse">
               <input
                 id="accNo"
-                className="align-right bg-slate-300"
+                className="float-right text-black rounded bg-slate-200"
                 defaultValue={
                   dataLoaded != undefined ? userData.account_no : ""
                 }
