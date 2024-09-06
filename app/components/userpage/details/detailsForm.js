@@ -45,13 +45,12 @@ export default function DetailsForm({ user, userData }) {
             e.preventDefault();
             onSubmit(user);
           }}
-          className="w-3/4"
         >
           <div className="border rounded m-2 bg-slate-50">
             <label>Account name:</label>
             <input
               id="accName"
-              className="flex float-right text-black rounded bg-slate-200"
+              className="flex flex-1 float-right text-black rounded bg-slate-200"
               defaultValue={
                 dataLoaded != undefined ? userData.account_name : ""
               }
@@ -62,7 +61,7 @@ export default function DetailsForm({ user, userData }) {
             <label>Sort code:</label>
             <input
               id="sortCode"
-              className="flex float-right text-black rounded bg-slate-200"
+              className="flex flex-1 float-right text-black rounded bg-slate-200"
               defaultValue={dataLoaded != undefined ? userData.sort_code : ""}
               disabled={dataLoaded != undefined ? true : false}
             />
@@ -71,7 +70,7 @@ export default function DetailsForm({ user, userData }) {
             <label>Account number:</label>
             <input
               id="accNo"
-              className="flex float-right text-black rounded bg-slate-200"
+              className="flex flex-1 float-right text-black rounded bg-slate-200"
               defaultValue={dataLoaded != undefined ? userData.account_no : ""}
               disabled={dataLoaded != undefined ? true : false}
             />
