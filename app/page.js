@@ -120,7 +120,7 @@ export default function Home() {
             <form
               id="transactionForm"
               onSubmit={(e) => {
-                e.preventDefault;
+                e.preventDefault();
                 submitForm(everyoneChecked, user, users);
               }}
             >
