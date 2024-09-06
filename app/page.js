@@ -70,6 +70,7 @@ export default function Home() {
   const [everyoneChecked, setEveryoneChecked] = useState(true);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [form, setForm] = useState([]);
 
   const { isSignedIn, user } = useUser();
 
@@ -96,9 +97,8 @@ export default function Home() {
       fetchTransactions();
       fetchUsers();
     }
+    setForm(document.getElementById("transactionForm"));
   }, []);
-
-  const form = document.getElementById("transactionForm");
 
   if (loading) {
     return <div>Loading...</div>;
