@@ -49,14 +49,17 @@ export default function QueuePage() {
       }
       return (
         <div className="flex flex-wrap justify-center ">
-          <input
-            type="checkbox"
-            className="toggle"
-            defaultChecked
-            onChange={(e) => {
-              onChange(e);
-            }}
-          />
+          <div className="flex">
+            <label className="mx-5">Show all</label>
+            <input
+              type="checkbox"
+              className="toggle"
+              defaultChecked
+              onChange={(e) => {
+                onChange(e);
+              }}
+            />
+          </div>
           {queue.map((element) => {
             return (
               <Card
