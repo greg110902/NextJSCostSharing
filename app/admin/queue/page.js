@@ -16,7 +16,10 @@ export default function QueuePage() {
 
   useEffect(() => {
     const fetchPayments = async () => {
-      const { data } = await client.from("payments").select();
+      const { data } = await client
+        .from("payments")
+        .select()
+        .order("created_at", { ascending: false });
 
       setPayments(data);
       setPaymentsLoading(false);
