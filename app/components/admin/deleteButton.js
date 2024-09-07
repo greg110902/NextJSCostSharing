@@ -4,6 +4,7 @@ async function DeleteRequest(id) {
   const client = supabase();
 
   const { error } = await client.from("payments").delete().eq("id", id);
+  location.reload()
 }
 
 export default function DeleteButton({ id }) {
