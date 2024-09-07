@@ -45,7 +45,9 @@ export default function Card({ ID, author, amount, date, type, status }) {
             <div className="float-left">
               <Badge status={status} />
             </div>
-            <DeleteButton id={ID} />
+            <div className="float-right">
+              <DeleteButton id={ID} />
+            </div>
           </div>
           <div className="flex flex-1">
             {type === true ? "Payment" : "Withdrawal"}
