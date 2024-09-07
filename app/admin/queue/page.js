@@ -29,23 +29,34 @@ export default function QueuePage() {
 
   let queue = [];
 
-  if (!paymentsLoading) {
-    if (all) {
-      payments.forEach((payment) => {
-        queue.push(payment);
-      });
-    } else {
-      payments.forEach((payment) => {
-        if (payment.new === true) {
+  const onChange = (e) => {
+    setAll(e.target.checked);
+  };
+
+  console.log("QUEUE", queue);
+  if (isSignedIn && user.publicMetadata.role === "admin") {
+    if (!paymentsLoading) {
+      if (all) {
+        payments.forEach((payment) => {
           queue.push(payment);
-        }
-      });
-    }
-    console.log("QUEUE", queue);
-    if (isSignedIn && user.publicMetadata.role === "admin") {
+        });
+      } else {
+        payments.forEach((payment) => {
+          if (payment.new === true) {
+            queue.push(payment);
+          }
+        });
+      }
       return (
         <div className="flex flex-wrap justify-center ">
-          <input type="checkbox" className="toggle" />
+          <input
+            type="checkbox"
+            className="toggle"
+            defaultChecked
+            onChange={(e) => {
+              onChange(e);
+            }}
+          />
           {queue.map((element) => {
             return (
               <Card
