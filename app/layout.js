@@ -19,6 +19,7 @@ export default function RootLayout({ children }) {
       secretKey={process.env.CLERK_SECRET_KEY}
     >
       <html lang="en" className="bg-white">
+        <link rel="manifest" href="./manifest.json" />
         <body className="bg-white">
           <SignedOut>
             <SignInButton />
