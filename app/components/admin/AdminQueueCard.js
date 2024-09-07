@@ -47,7 +47,7 @@ export default function Card({ ID, author, amount, date, type, status }) {
             </div>
             <DeleteButton id={ID} />
           </div>
-          <div>{type === true ? "Payment" : "Withdrawal"}</div>
+          <div className="flex">{type === true ? "Payment" : "Withdrawal"}</div>
         </div>
         <div className="text-slate-900">
           Submitted by: {userIDToName(author, users)}
