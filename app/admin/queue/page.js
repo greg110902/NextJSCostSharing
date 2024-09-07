@@ -45,24 +45,19 @@ export default function QueuePage() {
     if (isSignedIn && user.publicMetadata.role === "admin") {
       return (
         <div className="flex flex-wrap justify-center ">
-          <>
-            {queue.length > 0 ? (
-              queue.map((element) => {
-                return (
-                  <Card
-                    ID={element.id}
-                    author={element.author}
-                    amount={element.amount}
-                    date={element.created_at}
-                    type={element.type}
-                    status={element.status}
-                  />
-                );
-              })
-            ) : (
-              <></>
-            )}
-          </>
+          <input type="checkbox" className="toggle" />
+          {queue.map((element) => {
+            return (
+              <Card
+                ID={element.id}
+                author={element.author}
+                amount={element.amount}
+                date={element.created_at}
+                type={element.type}
+                status={element.status}
+              />
+            );
+          })}
         </div>
       );
     } else {
