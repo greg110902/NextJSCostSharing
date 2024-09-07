@@ -3,6 +3,7 @@ import supabase from "../../utils/supabase";
 import Badge from "../userpage/queue/Badge";
 import { useUser } from "@clerk/nextjs";
 import AcceptRejectButtons from "./AcceptRejectButtons";
+import DeleteButton from "./deleteButton";
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -40,8 +41,14 @@ export default function Card({ ID, author, amount, date, type, status }) {
     <div className="card bg-slate-100 w-3/4 shadow-xl m-10 hover:bg-gray-100 hover:scale-105 flex justify-center">
       <div className="card-body">
         <div className="card-title flex justify-center text-slate-900">
+          <div className="flex">
+            <div className="float-left">
+              <Badge status={status} />
+            </div>
+
+            <DeleteButton id={ID} />
+          </div>
           <div>{type === true ? "Payment" : "Withdrawal"}</div>
-          <Badge status={status} />
         </div>
         <div className="text-slate-900">
           Submitted by: {userIDToName(author, users)}
