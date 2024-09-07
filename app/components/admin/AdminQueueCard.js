@@ -40,14 +40,16 @@ export default function Card({ ID, author, amount, date, type, status }) {
   return (
     <div className="card bg-slate-100 w-3/4 shadow-xl m-10 hover:bg-gray-100 hover:scale-105 flex justify-center">
       <div className="card-body">
-        <div className="card-title flex justify-center text-slate-900">
+        <div className="card-title flex flex-col justify-center text-slate-900">
           <div className="flex-1">
             <div className="float-left">
               <Badge status={status} />
             </div>
             <DeleteButton id={ID} />
           </div>
-          <div className="flex">{type === true ? "Payment" : "Withdrawal"}</div>
+          <div className="flex flex-1">
+            {type === true ? "Payment" : "Withdrawal"}
+          </div>
         </div>
         <div className="text-slate-900">
           Submitted by: {userIDToName(author, users)}
