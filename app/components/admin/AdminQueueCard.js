@@ -41,7 +41,7 @@ export default function Card({ ID, author, amount, date, type, status }) {
     <div className="card bg-slate-100 w-3/4 shadow-xl m-10 hover:bg-gray-100 hover:scale-105 flex justify-center">
       <div className="card-body">
         <div className="card-title flex justify-center text-slate-900">
-          <div className="flex flex-1">
+          <div>
             <div className="float-left">
               <Badge status={status} />
             </div>

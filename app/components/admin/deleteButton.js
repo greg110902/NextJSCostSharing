@@ -9,7 +9,7 @@ async function DeleteRequest(id) {
 export default function DeleteButton({ id }) {
   return (
     <button
-      className="btn btn-square btn-outline float-right"
+      className="btn btn-square btn-sm btn-outline float-right"
       onClick={() => DeleteRequest(id)}
     >
       <svg
