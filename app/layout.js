@@ -7,7 +7,7 @@ import { SignInButton, UserButton } from "@clerk/nextjs";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  manifest: "../public/manifest.json",
+  manifest: "./manifest.json",
   title: "54 BelRD",
   description: "54 Belmont Road finances app.",
 };
