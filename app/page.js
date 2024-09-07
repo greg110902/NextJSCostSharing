@@ -8,8 +8,12 @@ import { useUser } from "@clerk/nextjs";
 import NotAllSignedUp from "./components/transactions/notHouseSignedUp";
 
 function userIDToName(userID, users) {
+  // Converts an ID to their first name, as stored in the database
+
   const u = users.map((user) => {
     if (user.id === userID) {
+      // if the user id matches a user id in the database, return the
+      // first name corresponding to the id.
       return user.firstName;
     }
   });
@@ -20,6 +24,8 @@ function userIDToName(userID, users) {
 }
 
 async function addUser(user) {
+  // Adds a new user to the users database, if their id doesn't
+  // already exist.
   const client = supabase();
   const { error } = await client
     .from("users")
@@ -28,29 +34,37 @@ async function addUser(user) {
 }
 
 async function submitForm(everyoneChecked, user, users) {
-  let author = document.getElementById("author").value;
+  // Get the relevant input field values
   let title = document.getElementById("title").value;
   let amount = document.getElementById("amount").value;
 
+  // Initialise database client
   const client = supabase();
 
+  // Initialise array to store users affected by a transaction
   let checked = [];
 
   if (!everyoneChecked) {
+    // Runs if transaction only affects a subset of the house
     var payers = document.getElementsByName("payerCheckbox");
     for (const payer of payers) {
+      // Loops over the user checkboxes on the form
       if (payer.checked) {
+        // If the user is selected, add their ID to the checked array
         checked.push(payer.id);
       }
     }
   } else {
+    // if everyone is selected
     let ids = [];
     users.forEach((element) => {
+      // Add everyone's ID to the array
       ids.push(element.id);
     });
-    console.log(ids);
     checked = ids;
   }
+
+  // Insert the transaction to the database
   const { error } = await client.from("transactions").insert({
     author: user.id,
     affecting: checked,
@@ -60,33 +74,44 @@ async function submitForm(everyoneChecked, user, users) {
   if (error) {
     console.log(error);
   }
+  // Reload the page so it shows, as UseEffect runs on refresh
   location.reload();
 }
 
 export default function Home() {
+  // Initialise states
   const [transactions, setTransactions] = useState([]);
   const [everyoneChecked, setEveryoneChecked] = useState(true);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Get the current user
   const { isSignedIn, user } = useUser();
 
+  // Initialise the database client
   const client = supabase();
 
   if (isSignedIn) {
+    // Add the user everytime they open the page, because if they
+    // already exist nothing will change
     addUser(user, client);
   }
 
   useEffect(() => {
+    // Runs on refresh
     const fetchTransactions = async () => {
+      // Select all of the transactions, ordered by creation date.
       const { data } = await client
         .from("transactions")
         .select()
         .order("created_at", { ascending: false });
+
+      // Set transactions variable to received data and the loading to false
       setTransactions(await data);
       setLoading(false);
     };
     const fetchUsers = async () => {
+      // Select all users on the database
       const { data } = await client.from("users").select();
       setUsers(await data);
     };
@@ -97,11 +122,15 @@ export default function Home() {
   }, []);
 
   if (loading) {
+    // If the page is loading, show loading screen
     return <div>Loading...</div>;
   } else if (isSignedIn) {
+    // If the user is signed in
     return (
       <div>
         <div className="flex justify-center">
+          {/* Show the submit transaction button if and only if the number of users in
+          the database is 7, meaning that everyone has signed up. */}
           {users.length != 7 ? (
             <NotAllSignedUp />
           ) : (
@@ -111,6 +140,9 @@ export default function Home() {
           )}
         </div>
 
+        {/* Submit transaction form is hidden behind a modal, so a dialogue shows
+        when they select "Submit Transaction" with the required form. Clicking outside
+        of the modal hides the form.*/}
         <input type="checkbox" id="my_modal_7" className="modal-toggle" />
         <div className="modal bg-slate-100" role="dialog">
           <div className="modal-box bg-slate-100">
@@ -118,6 +150,7 @@ export default function Home() {
             <form
               id="transactionForm"
               onSubmit={(e) => {
+                // Prevent the default action (because of iOS)
                 e.preventDefault();
                 submitForm(everyoneChecked, user, users);
               }}
@@ -154,21 +187,26 @@ export default function Home() {
                   onClick={() => setEveryoneChecked(!everyoneChecked)}
                   className="checkbox align-middle mx-3"
                 />
+                {/* Show an additional form if the user is selecting a subset of the house */}
                 {!everyoneChecked ? <PayerForm currentID={user.id} /> : <></>}
               </div>
               <div className="modal-action">
+                {/* Button submits the form and hides the modal. */}
                 <button className="btn" type="submit" htmlFor="my_modal_7">
                   Submit
                 </button>
               </div>
             </form>
           </div>
+          {/* Hides the modal when someone clicks off of it */}
           <label className="modal-backdrop" htmlFor="my_modal_7"></label>
         </div>
 
         <div>
+          {/* Greet the user */}
           <h1>Hello, {user?.firstName}</h1>
           <div className="flex justify-center flex-wrap">
+            {/* Map over the transactions, show a card for each */}
             {transactions.map((transaction) => {
               return (
                 <Card
