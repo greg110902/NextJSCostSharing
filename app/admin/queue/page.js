@@ -8,7 +8,7 @@ import { useUser } from "@clerk/nextjs";
 export default function QueuePage() {
   const [payments, setPayments] = useState([]);
   const [paymentsLoading, setPaymentsLoading] = useState(true);
-  const [all, setAll] = useState(true);
+  const [all, setAll] = useState(false);
 
   const { isSignedIn, user } = useUser();
 
@@ -54,7 +54,6 @@ export default function QueuePage() {
             <input
               type="checkbox"
               className="toggle"
-              defaultChecked
               onChange={(e) => {
                 onChange(e);
               }}
