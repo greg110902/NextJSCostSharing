@@ -106,7 +106,6 @@ export default function Home() {
     OneSignal.init({ appId: "69778e3f-6742-4ea4-9dd3-ea721a4e4158" }).then(
       () => {
         setPushInitialised(true);
-        OneSignal.Slidedown.promptPush();
       }
     );
     const fetchTransactions = async () => {
@@ -136,6 +135,7 @@ export default function Home() {
     return <div>Loading...</div>;
   } else if (isSignedIn && pushInitialised) {
     // If the user is signed in
+    OneSignal.Slidedown.promptPush();
     return (
       <div>
         <div className="flex justify-center">
