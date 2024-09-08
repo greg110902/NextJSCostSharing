@@ -1,8 +1,11 @@
+"use client";
+
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Drawer from "./components/navbar/Drawer";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/nextjs";
 import { SignInButton, UserButton } from "@clerk/nextjs";
+import { useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,6 +16,23 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
+  useEffect(() => {
+    window.OneSignal = window.OneSignal || [];
+    OneSignal.push(function () {
+      OneSignal.init({
+        appId: "b40b7cc7-13dc-4662-8b48-efa668f9b72a",
+        notifyButton: {
+          enable: true,
+        },
+
+        allowLocalhostAsSecureOrigin: true,
+      });
+    });
+
+    return () => {
+      window.OneSignal = undefined;
+    };
+  });
   return (
     <ClerkProvider
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
@@ -22,8 +42,8 @@ export default async function RootLayout({ children }) {
         <head>
           <link rel="manifest" href="./manifest.json" />
           <script
-            src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
-            async=""
+            src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
+            defer
           ></script>
           <script>
             window.OneSignalDeferred = window.OneSignalDeferred || [];
