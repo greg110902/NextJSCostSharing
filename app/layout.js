@@ -13,8 +13,8 @@ export const metadata = {
   description: "54 Belmont Road finances app.",
 };
 
-export default async function RootLayout({ children }) {
-  OneSignal.init({appId: '69778e3f-6742-4ea4-9dd3-ea721a4e4158'})
+export default function RootLayout({ children }) {
+  OneSignal.init({ appId: "69778e3f-6742-4ea4-9dd3-ea721a4e4158" });
   return (
     <ClerkProvider
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
