@@ -3,6 +3,7 @@ import "./globals.css";
 import Drawer from "./components/navbar/Drawer";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/nextjs";
 import { SignInButton, UserButton } from "@clerk/nextjs";
+import OneSignal from "react-onesignal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,6 +14,7 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
+  OneSignal.init({appId: '69778e3f-6742-4ea4-9dd3-ea721a4e4158'})
   return (
     <ClerkProvider
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
