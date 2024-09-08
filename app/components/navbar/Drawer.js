@@ -34,7 +34,7 @@ export default async function Drawer({ content }) {
           <div className="mx-2 flex-1 px-2">54 Belmont Road Finances</div>
           <div className="hidden flex-none lg:block">
             <ul className="menu menu-horizontal">
-              {/* Navbar menu content here */}
+              {/* Navbar menu content */}
               <li>
                 <a href="/">Transactions list</a>
               </li>
@@ -44,6 +44,7 @@ export default async function Drawer({ content }) {
               <li>
                 <a href={`/users/${await user.id}/details`}>Details</a>
               </li>
+              {/* Only see the admin queue if the user is an admin */}
               {(await user.publicMetadata.role) === "admin" ? (
                 <li>
                   <a href={`/admin/queue`}>Admin queue</a>
@@ -55,7 +56,7 @@ export default async function Drawer({ content }) {
           </div>
           <UserButton />
         </div>
-        {/* Page content here */}
+        {/* Page content */}
         {content}
       </div>
       <div className="drawer-side">
@@ -65,7 +66,7 @@ export default async function Drawer({ content }) {
           className="drawer-overlay"
         ></label>
         <ul className="menu bg-base-200 min-h-full w-80 p-4">
-          {/* Sidebar content here */}
+          {/* Sidebar content */}
           <li>
             <a href="/">Transactions list</a>
           </li>
@@ -75,6 +76,7 @@ export default async function Drawer({ content }) {
           <li>
             <a href={`/users/${await user.id}/details`}>Details</a>
           </li>
+          {/* Only see the admin queue if the user is an admin */}
           {(await user.publicMetadata.role) === "admin" ? (
             <li>
               <a href={`/admin/queue`}>Admin queue</a>

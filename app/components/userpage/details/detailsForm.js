@@ -1,18 +1,15 @@
-import DetailsModal from "../../../components/navbar/detailsModal";
 import supabase from "../../../utils/supabase";
 
 async function onSubmit(user) {
+  // Get form field values
   const accName = document.getElementById("accName").value;
   const accNo = document.getElementById("accNo").value;
   const sortCode = document.getElementById("sortCode").value;
 
-  console.log("accName", accName);
-  console.log("accNo", accNo);
-  console.log("sort_code", sortCode);
-  console.log(user.id);
-
+  // Initialise database client
   const client = supabase();
 
+  // Update the rows -- change if different, if the same then do nothing
   const { error } = await client
     .from("users")
     .update({ account_name: accName, account_no: accNo, sort_code: sortCode })
@@ -23,16 +20,22 @@ async function onSubmit(user) {
 
 export default function DetailsForm({ user, userData }) {
   function Edit() {
+    // Runs when the user hits the "Edit" button
+    // Clear the user data
     userData = undefined;
+
+    // Get the HTML elements
     const nameInput = document.getElementById("accName");
     const noInput = document.getElementById("accNo");
     const codeInput = document.getElementById("sortCode");
 
+    // Allow the user to edit the form fields
     nameInput.disabled = false;
     noInput.disabled = false;
     codeInput.disabled = false;
   }
 
+  // Use the account name as an indicator as to whether the user has enterred their account details
   let dataLoaded = userData.account_name;
 
   console.log(userData);

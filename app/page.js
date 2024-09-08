@@ -6,7 +6,6 @@ import supabase from "./utils/supabase";
 import PayerForm from "./components/transaction/payerForm";
 import { useUser } from "@clerk/nextjs";
 import NotAllSignedUp from "./components/transactions/notHouseSignedUp";
-import PushClient from "./utils/push";
 
 function userIDToName(userID, users) {
   // Converts an ID to their first name, as stored in the database
@@ -130,7 +129,6 @@ export default function Home() {
     // If the user is signed in
     return (
       <div>
-        <PushClient />
         <div className="flex justify-center">
           {/* Show the submit transaction button if and only if the number of users in
           the database is 7, meaning that everyone has signed up. */}
