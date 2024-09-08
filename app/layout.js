@@ -9,12 +9,6 @@ import { useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-  manifest: "./manifest.json",
-  title: "54 BelRD",
-  description: "54 Belmont Road finances app.",
-};
-
 export default async function RootLayout({ children }) {
   useEffect(() => {
     window.OneSignal = window.OneSignal || [];
