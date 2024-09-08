@@ -1,5 +1,3 @@
-"use client";
-
 import { UserButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 import DetailsModal from "./detailsModal";
