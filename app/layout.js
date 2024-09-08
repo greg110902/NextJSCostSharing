@@ -27,10 +27,12 @@ export default async function RootLayout({ children }) {
           ></script>
           <script>
             window.OneSignalDeferred = window.OneSignalDeferred || [];
-            OneSignalDeferred.push(async function(OneSignal){" "}
-            {await OneSignal.init({
-              appId: "69778e3f-6742-4ea4-9dd3-ea721a4e4158",
-            })}
+            OneSignalDeferred.push(
+            {async function (OneSignal) {
+              await OneSignal.init({
+                appId: "69778e3f-6742-4ea4-9dd3-ea721a4e4158",
+              });
+            }}
             );
           </script>
         </head>
