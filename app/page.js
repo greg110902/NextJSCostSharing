@@ -6,6 +6,7 @@ import supabase from "./utils/supabase";
 import PayerForm from "./components/transaction/payerForm";
 import { useUser } from "@clerk/nextjs";
 import NotAllSignedUp from "./components/transactions/notHouseSignedUp";
+import OneSignal from "react-onesignal";
 
 function userIDToName(userID, users) {
   // Converts an ID to their first name, as stored in the database
@@ -84,6 +85,7 @@ export default function Home() {
   const [everyoneChecked, setEveryoneChecked] = useState(true);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [pushInitialised, setPushInitialised] = useState(false);
 
   // Get the current user
   const { isSignedIn, user } = useUser();
@@ -99,6 +101,14 @@ export default function Home() {
 
   useEffect(() => {
     // Runs on refresh
+
+    // Initialise onesignal for push notifications
+    OneSignal.init({ appId: "69778e3f-6742-4ea4-9dd3-ea721a4e4158" }).then(
+      () => {
+        setPushInitialised(true);
+        OneSignal.Slidedown.promptPush();
+      }
+    );
     const fetchTransactions = async () => {
       // Select all of the transactions, ordered by creation date.
       const { data } = await client
@@ -124,7 +134,7 @@ export default function Home() {
   if (loading) {
     // If the page is loading, show loading screen
     return <div>Loading...</div>;
-  } else if (isSignedIn) {
+  } else if (isSignedIn && pushInitialised) {
     // If the user is signed in
     return (
       <div>
