@@ -147,7 +147,7 @@ export default function Home() {
             <label id="modalButton" htmlFor="my_modal_7" className="btn">
               Submit transaction
             </label>
-            <details className="dropdown">
+            <details className="dropdown dropdown-bottom dropdown-end">
               <summary className="btn m-1">Filters</summary>
               <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                 <li>
