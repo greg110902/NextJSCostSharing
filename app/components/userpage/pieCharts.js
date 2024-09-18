@@ -61,7 +61,7 @@ export default function OwedOwingCharts({ userBalances, users }) {
         width={300}
         height={150}
       >
-        <PieCenterLabel>{"£ " + owedBalance}</PieCenterLabel>
+        <PieCenterLabel>{"£ " + (owedBalance).toFixed(2)}</PieCenterLabel>
       </PieChart>
       <h1>House owes</h1>
       <PieChart
@@ -69,7 +69,7 @@ export default function OwedOwingCharts({ userBalances, users }) {
         width={300}
         height={150}
       >
-        <PieCenterLabel>{"£ " + owesBalance}</PieCenterLabel>
+        <PieCenterLabel>{"£ " + (owesBalance).toFixed(2)}</PieCenterLabel>
       </PieChart>
     </div>
   );

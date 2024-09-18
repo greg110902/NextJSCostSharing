@@ -107,7 +107,7 @@ export default function UserPage({ params }) {
                 ? "The house owes you:"
                 : "You owe the house:"
             }
-            amount={"£ " + Math.abs(currentUserBalance.balance)}
+            amount={"£ " + (Math.abs(currentUserBalance.balance)).toFixed(2)}
           />
           <div className="flex justify-center">
             {/* Pie charts showing how much the house owes and is owed */}
