@@ -134,7 +134,8 @@ export default function Home() {
           the database is 7, meaning that everyone has signed up. */}
           {users.length != 7 ? (
             <div className="bordered rounded-lg bg-slate-100 text-black p-3 my-3">
-              Not all users signed up yet. Checking "everyone" will only affect:{" "}
+              Not all users signed up yet. Checking &quot;everyone&quot; will
+              only affect:
               {users.map((user) => {
                 return `${user.firstName} `;
               })}
