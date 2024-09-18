@@ -159,13 +159,7 @@ export default function Home() {
                 <li>
                   <div>
                     <label>Price range:</label>
-                    <input
-                      type="range"
-                      min="0"
-                      max="100"
-                      value="40"
-                      className="range"
-                    />
+                    <input type="range" min="0" max="100" className="range" />
                   </div>
                 </li>
               </ul>
