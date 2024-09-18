@@ -133,7 +133,7 @@ export default function Home() {
           {/* Show the submit transaction button if and only if the number of users in
           the database is 7, meaning that everyone has signed up. */}
           {users.length != 7 ? (
-            <div className="bordered rounded-lg bg-slate-100 text-black p-3 my-3">
+            <div className="flex bordered rounded-lg bg-slate-100 text-black p-3 my-3">
               Not all users signed up yet. Checking &quot;everyone&quot; will
               only affect:
               {users.map((user) => {
