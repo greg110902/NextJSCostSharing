@@ -196,6 +196,7 @@ export default function Home() {
                 <label className="m-1 text-black">Amount</label>
                 <input
                   type="number"
+                  step={0.01}
                   id="amount"
                   className="bg-slate-300 text-black rounded float-right"
                 ></input>
