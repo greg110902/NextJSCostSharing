@@ -129,7 +129,7 @@ export default function Home() {
     // If the user is signed in
     return (
       <div>
-        <div className="flex justify-center">
+        <div className="flex flex-col justify-center">
           {/* Show the submit transaction button if and only if the number of users in
           the database is 7, meaning that everyone has signed up. */}
           {users.length != 7 ? (
