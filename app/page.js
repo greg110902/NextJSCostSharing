@@ -143,10 +143,34 @@ export default function Home() {
           ) : (
             <></>
           )}
-
-          <label id="modalButton" htmlFor="my_modal_7" className="btn">
-            Submit transaction
-          </label>
+          <div>
+            <label id="modalButton" htmlFor="my_modal_7" className="btn">
+              Submit transaction
+            </label>
+            <details className="dropdown">
+              <summary className="btn m-1">Filters</summary>
+              <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                <li>
+                  <div>
+                    <label>Only transactions which affect me?</label>
+                    <input type="checkbox" className="toggle" defaultChecked />
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <label>Price range:</label>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value="40"
+                      className="range"
+                    />
+                  </div>
+                </li>
+              </ul>
+            </details>
+          </div>
         </div>
 
         {/* Submit transaction form is hidden behind a modal, so a dialogue shows
