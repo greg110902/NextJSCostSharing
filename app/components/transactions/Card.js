@@ -51,7 +51,7 @@ export default function Card({
           {" "}
           Affecting:{" "}
           {affected.map((person) => {
-            return userIDToName(person, users);
+            return " " + userIDToName(person, users);
           })}
         </div>
         <div className="text-slate-900">On: {date}</div>
