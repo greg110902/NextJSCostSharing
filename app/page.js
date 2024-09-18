@@ -143,7 +143,7 @@ export default function Home() {
           ) : (
             <></>
           )}
-          <div>
+          <div className="flex justify-between">
             <label id="modalButton" htmlFor="my_modal_7" className="btn">
               Submit transaction
             </label>
@@ -154,12 +154,6 @@ export default function Home() {
                   <div>
                     <label>Only transactions which affect me?</label>
                     <input type="checkbox" className="toggle" defaultChecked />
-                  </div>
-                </li>
-                <li>
-                  <div>
-                    <label>Price range:</label>
-                    <input type="range" min="0" max="100" className="range" />
                   </div>
                 </li>
               </ul>
