@@ -127,6 +127,7 @@ export default function Home() {
     return <div>Loading...</div>;
   } else if (isSignedIn) {
     // If the user is signed in
+
     return (
       <div>
         <div className="flex flex-col justify-center">
@@ -230,6 +231,9 @@ export default function Home() {
           <div className="flex justify-center flex-wrap">
             {/* Map over the transactions, show a card for each */}
             {transactions.map((transaction) => {
+              const date = new Date(transaction["created_at"]).toLocaleString(
+                "en-GB"
+              );
               return (
                 <Card
                   transactionID={transaction["id"]}
@@ -237,7 +241,7 @@ export default function Home() {
                   affected={transaction["affecting"]}
                   amount={transaction["amount"]}
                   title={transaction["title"]}
-                  date={transaction["created_at"]}
+                  date={date}
                 />
               );
             })}
