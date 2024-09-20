@@ -80,16 +80,21 @@ async function submitForm(everyoneChecked, user, users) {
 
 export default function Home() {
   // Initialise states
-  const [transactions, setTransactions] = useState([]);
+  const [list, setTransactions] = useState([]);
   const [everyoneChecked, setEveryoneChecked] = useState(true);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showAll, setShowAll] = useState(false);
 
   // Get the current user
   const { isSignedIn, user } = useUser();
 
   // Initialise the database client
   const client = supabase();
+
+  const onChangeAll = (e) => {
+    setShowAll(!e.target.checked);
+  };
 
   if (isSignedIn) {
     // Add the user everytime they open the page, because if they
@@ -127,7 +132,17 @@ export default function Home() {
     return <div>Loading...</div>;
   } else if (isSignedIn) {
     // If the user is signed in
-
+    let transactions = [];
+    list.forEach((transaction) => {
+      if (showAll) {
+        transactions.push(transaction);
+      } else if (
+        transaction.author === user.id ||
+        transaction.affecting.includes(user.id)
+      ) {
+        transactions.push(transaction);
+      }
+    });
     return (
       <div>
         <div className="flex flex-col justify-center">
@@ -154,7 +169,12 @@ export default function Home() {
                 <li>
                   <div>
                     <label>Only transactions which affect me?</label>
-                    <input type="checkbox" className="toggle" defaultChecked />
+                    <input
+                      type="checkbox"
+                      className="toggle"
+                      onChange={(e) => onChangeAll(e)}
+                      defaultChecked
+                    />
                   </div>
                 </li>
               </ul>
