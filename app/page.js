@@ -237,17 +237,7 @@ export default function Home() {
                   affected={transaction["affecting"]}
                   amount={transaction["amount"]}
                   title={transaction["title"]}
-                  date={Date(transaction["created_at"]).toLocaleString(
-                    "en-uk",
-                    {
-                      weekday: "long",
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    }
-                  )}
+                  date={transaction["created_at"]}
                 />
               );
             })}
