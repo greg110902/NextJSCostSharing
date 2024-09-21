@@ -263,6 +263,7 @@ export default function Home() {
                   title={transaction["title"]}
                   date={date}
                   userID={user.id}
+                  authorID={transaction["author"]}
                 />
               );
             })}

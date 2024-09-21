@@ -17,6 +17,7 @@ function userIDToName(userID, users) {
 export default function Card({
   transactionID,
   author,
+  authorID,
   affected,
   amount,
   title,
@@ -108,7 +109,7 @@ export default function Card({
                   </svg>
                 </a>
               </li>
-              {userID === author ? (
+              {userID === authorID ? (
                 <li>
                   <a>
                     <svg
