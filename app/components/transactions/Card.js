@@ -51,7 +51,7 @@ export default function Card({
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="btn size-6"
+              className="size-6"
               tabIndex={0}
               role="button"
             >
