@@ -49,7 +49,7 @@ export default function Card({
             <div
               tabIndex={0}
               role="button"
-              className="btn size-3 rounded-full m-1 bg-transparent"
+              className="btn rounded-full m-1 bg-transparent"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +80,7 @@ export default function Card({
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="size-6 bg-red-600"
+                    className="size-6"
                   >
                     <path
                       strokeLinecap="round"
