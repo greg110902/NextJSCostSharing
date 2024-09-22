@@ -17,7 +17,7 @@ function userIDToName(userID, users) {
   return filter[0];
 }
 
-async function reportTransaction(transactionID, userID, report) {
+async function reportTransaction(transactionID, userID, report, affected) {
   const client = supabase();
 
   let newReport;
@@ -34,17 +34,26 @@ async function reportTransaction(transactionID, userID, report) {
     .update({ reportedBy: newReport })
     .eq("id", transactionID);
 
-  if (newReport.length === 4) {
-    const { error } = await client
-      .from("transactions")
-      .update({ valid: false })
-      .eq("id", transactionID);
+  if (affected.length === 7) {
+    if (newReport.length === 4) {
+      const { error } = await client
+        .from("transactions")
+        .update({ valid: false })
+        .eq("id", transactionID);
+    }
+  } else {
+    if (newReport.length === affected.length) {
+      const { error } = await client
+        .from("transactions")
+        .update({ valid: false })
+        .eq("id", transactionID);
+    }
   }
 
   location.reload();
 }
 
-async function cancelReport(transactionID, userID, report) {
+async function cancelReport(transactionID, userID, report, affected) {
   let newReport = [];
 
   report.forEach((user) => {
@@ -59,6 +68,22 @@ async function cancelReport(transactionID, userID, report) {
     .from("transactions")
     .update({ reportedBy: newReport })
     .eq("id", transactionID);
+
+  if (affected.length === 7) {
+    if (newReport.length != 4) {
+      const { error } = await client
+        .from("transactions")
+        .update({ valid: true })
+        .eq("id", transactionID);
+    }
+  } else {
+    if (newReport.length != affected.length) {
+      const { error } = await client
+        .from("transactions")
+        .update({ valid: true })
+        .eq("id", transactionID);
+    }
+  }
 
   location.reload();
 }
@@ -193,7 +218,8 @@ export default function Card({
           <h3 className="font-bold text-lg">Report transaction</h3>
           <p className="py-4">
             Reporting a transaction only takes effect when 4 users in the house
-            agree. Click off of the box to cancel.
+            agree, or for smaller transactions when everyone affected agrees.
+            Click off of the box to cancel.
           </p>
           <div className="flex justify-center">
             <button
