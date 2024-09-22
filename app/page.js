@@ -264,6 +264,9 @@ export default function Home() {
                   date={date}
                   userID={user.id}
                   authorID={transaction["author"]}
+                  allChecked={
+                    transaction["affecting"].length === 7 ? true : false
+                  }
                 />
               );
             })}

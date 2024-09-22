@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import supabase from "../../utils/supabase";
-import PayerForm from "../transaction/payerForm";
+import EditPayerForm from "../transaction/editPayerForm";
 
 function userIDToName(userID, users) {
   // Looks up the ID and returns their first name
@@ -28,6 +28,54 @@ async function deleteTransaction(transactionID) {
   location.reload();
 }
 
+async function submitForm(everyoneChecked, userID, users, transactionID) {
+  // Get the relevant input field values
+  let title = document.getElementById("edit-title").value;
+  let amount = Number(document.getElementById("edit-amount").value);
+
+  // Initialise database client
+  const client = supabase();
+
+  // Initialise array to store users affected by a transaction
+  let checked = [];
+
+  if (!everyoneChecked) {
+    // Runs if transaction only affects a subset of the house
+    var payers = document.getElementsByName("edit-payerCheckbox");
+    for (const payer of payers) {
+      // Loops over the user checkboxes on the form
+      if (payer.checked) {
+        // If the user is selected, add their ID to the checked array
+        checked.push(payer.id);
+      }
+    }
+  } else {
+    // if everyone is selected
+    let ids = [];
+    users.forEach((element) => {
+      // Add everyone's ID to the array
+      ids.push(element.id);
+    });
+    checked = ids;
+  }
+
+  // Insert the transaction to the database
+  const { error } = await client
+    .from("transactions")
+    .update({
+      author: userID,
+      affecting: checked,
+      amount: amount,
+      title: title,
+    })
+    .eq("id", transactionID);
+  if (error) {
+    console.log(error);
+  }
+  // Reload the page so it shows, as UseEffect runs on refresh
+  location.reload();
+}
+
 export default function Card({
   transactionID,
   author,
@@ -37,10 +85,11 @@ export default function Card({
   title,
   date,
   userID,
+  allChecked,
 }) {
   // Initialise states
   const [users, setUsers] = useState([]);
-  const [everyoneChecked, setEveryoneChecked] = useState(true);
+  const [everyoneChecked, setEveryoneChecked] = useState(allChecked);
 
   // Initialise database client
   const client = supabase();
@@ -54,6 +103,8 @@ export default function Card({
 
     fetchUsers();
   }, []);
+
+  console.log("affecting", affected);
 
   return (
     <div>
@@ -83,7 +134,7 @@ export default function Card({
             onSubmit={(e) => {
               // Prevent the default action (because of iOS)
               e.preventDefault();
-              //submitForm(everyoneChecked, user, users);
+              submitForm(everyoneChecked, userID, users, transactionID);
             }}
           >
             <div className="m-1">
@@ -98,7 +149,7 @@ export default function Card({
             <div className="m-1">
               <label className="m-1 text-black">Title</label>
               <input
-                id="title"
+                id="edit-title"
                 className="bg-slate-300 text-black rounded float-right"
                 defaultValue={title}
               ></input>
@@ -108,7 +159,7 @@ export default function Card({
               <input
                 type="number"
                 step={0.01}
-                id="amount"
+                id="edit-amount"
                 className="bg-slate-300 text-black rounded float-right"
                 defaultValue={amount}
               ></input>
@@ -122,7 +173,11 @@ export default function Card({
                 className="checkbox align-middle mx-3"
               />
               {/* Show an additional form if the user is selecting a subset of the house */}
-              {!everyoneChecked ? <PayerForm currentID={authorID} /> : <></>}
+              {!everyoneChecked ? (
+                <EditPayerForm currentID={authorID} affecting={affected} />
+              ) : (
+                <></>
+              )}
             </div>
             <div className="modal-action">
               {/* Button submits the form and hides the modal. */}
