@@ -25,7 +25,8 @@ async function reportTransaction(transactionID, userID, report) {
   if (report === null) {
     newReport = [userID];
   } else {
-    newReport = report.push(userID);
+    newReport = report;
+    newReport.push(userID);
   }
 
   const { error } = await client
@@ -39,6 +40,25 @@ async function reportTransaction(transactionID, userID, report) {
       .update({ valid: false })
       .eq("id", transactionID);
   }
+
+  location.reload();
+}
+
+async function cancelReport(transactionID, userID, report) {
+  let newReport = [];
+
+  report.forEach((user) => {
+    if (user != userID) {
+      newReport.push(user);
+    }
+  });
+
+  const client = supabase();
+
+  const { error } = await client
+    .from("transactions")
+    .update({ reportedBy: newReport })
+    .eq("id", transactionID);
 
   location.reload();
 }
@@ -192,6 +212,30 @@ export default function Card({
         </form>
       </dialog>
 
+      <dialog id="cancel_report_modal" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Cancel report</h3>
+          <p className="py-4">
+            Reporting a transaction only takes effect when 4 users in the house
+            agree. Click off of the box to cancel.
+          </p>
+          <div className="flex justify-center">
+            <button
+              className="btn"
+              onClick={(e) => {
+                e.preventDefault();
+                cancelReport(transactionID, userID, reportedBy);
+              }}
+            >
+              Report
+            </button>
+          </div>
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>Report</button>
+        </form>
+      </dialog>
+
       <dialog id="edit_modal" className="modal">
         <div className="modal-box bg-slate-100">
           <h3 className="font-bold text-lg">Add transaction</h3>
@@ -320,7 +364,29 @@ export default function Card({
                     </a>
                   </li>
                 ) : (
-                  <></>
+                  <li>
+                    <a
+                      onClick={(e) => {
+                        e.preventDefault();
+                        document
+                          .getElementById("cancel_report_modal")
+                          .showModal();
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="size-6"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M3 2.25a.75.75 0 0 1 .75.75v.54l1.838-.46a9.75 9.75 0 0 1 6.725.738l.108.054A8.25 8.25 0 0 0 18 4.524l3.11-.732a.75.75 0 0 1 .917.81 47.784 47.784 0 0 0 .005 10.337.75.75 0 0 1-.574.812l-3.114.733a9.75 9.75 0 0 1-6.594-.77l-.108-.054a8.25 8.25 0 0 0-5.69-.625l-2.202.55V21a.75.75 0 0 1-1.5 0V3A.75.75 0 0 1 3 2.25Z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </a>
+                  </li>
                 )}
 
                 {userID === authorID ? (
