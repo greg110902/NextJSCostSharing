@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import supabase from "../../utils/supabase";
+import PayerForm from "../transaction/payerForm";
 
 function userIDToName(userID, users) {
   // Looks up the ID and returns their first name
@@ -26,6 +27,7 @@ export default function Card({
 }) {
   // Initialise states
   const [users, setUsers] = useState([]);
+  const [everyoneChecked, setEveryoneChecked] = useState(true);
 
   // Initialise database client
   const client = supabase();
@@ -42,10 +44,72 @@ export default function Card({
 
   return (
     <div>
-      <dialog id="edit_modal" className="modal">
+      <dialog id="delete_modal" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Hello!</h3>
           <p className="py-4">Press ESC key or click outside to close</p>
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>close</button>
+        </form>
+      </dialog>
+
+      <dialog id="edit_modal" className="modal">
+        <div className="modal-box bg-slate-100">
+          <h3 className="font-bold text-lg">Add transaction</h3>
+          <form
+            id="transactionForm"
+            onSubmit={(e) => {
+              // Prevent the default action (because of iOS)
+              e.preventDefault();
+              //submitForm(everyoneChecked, user, users);
+            }}
+          >
+            <div className="m-1">
+              <label className="m-1 text-black">Author</label>
+              <input
+                id="author"
+                disabled
+                className="bg-slate-300 rounded flex flex-1 float-right"
+                defaultValue={user.firstName}
+              ></input>
+            </div>
+            <div className="m-1">
+              <label className="m-1 text-black">Title</label>
+              <input
+                id="title"
+                className="bg-slate-300 text-black rounded float-right"
+                defaultValue={title}
+              ></input>
+            </div>
+            <div className="m-1">
+              <label className="m-1 text-black">Amount</label>
+              <input
+                type="number"
+                step={0.01}
+                id="amount"
+                className="bg-slate-300 text-black rounded float-right"
+                defaultValue={amount}
+              ></input>
+            </div>
+            <div className="m-1">
+              <label className=" text-black">Everyone paying</label>
+              <input
+                type="checkbox"
+                defaultChecked={everyoneChecked}
+                onClick={() => setEveryoneChecked(!everyoneChecked)}
+                className="checkbox align-middle mx-3"
+              />
+              {/* Show an additional form if the user is selecting a subset of the house */}
+              {!everyoneChecked ? <PayerForm currentID={user.id} /> : <></>}
+            </div>
+            <div className="modal-action">
+              {/* Button submits the form and hides the modal. */}
+              <button className="btn" type="submit" htmlFor="my_modal_7">
+                Submit
+              </button>
+            </div>
+          </form>
         </div>
         <form method="dialog" className="modal-backdrop">
           <button>close</button>
@@ -106,7 +170,7 @@ export default function Card({
                   <li>
                     <a
                       onClick={() => {
-                        document.getElementById("edit_modal").showModal();
+                        document.getElementById("delete_modal").showModal();
                       }}
                     >
                       <svg
@@ -130,7 +194,11 @@ export default function Card({
                 )}
                 {userID === authorID ? (
                   <li>
-                    <a>
+                    <a
+                      onClick={() => {
+                        document.getElementById("edit_modal").showModal();
+                      }}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
