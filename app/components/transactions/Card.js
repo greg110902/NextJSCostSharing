@@ -180,7 +180,11 @@ export default function Card({
               />
               {/* Show an additional form if the user is selecting a subset of the house */}
               {!everyoneChecked ? (
-                <EditPayerForm currentID={authorID} affecting={affected} />
+                <EditPayerForm
+                  currentID={authorID}
+                  affecting={affected}
+                  transactionID={transactionID}
+                />
               ) : (
                 <></>
               )}
