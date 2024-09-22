@@ -192,7 +192,7 @@ export default function Card({
 
   return (
     <div>
-      <dialog id="delete_modal" className="modal">
+      <dialog id={`delete_modal-${transactionID}`} className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">This action cannot be undone.</h3>
           <p className="py-4">Confirm delete or click away to close.</p>
@@ -213,7 +213,7 @@ export default function Card({
         </form>
       </dialog>
 
-      <dialog id="report_modal" className="modal">
+      <dialog id={`report_modal-${transactionID}`} className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Report transaction</h3>
           <p className="py-4">
@@ -238,7 +238,7 @@ export default function Card({
         </form>
       </dialog>
 
-      <dialog id="cancel_report_modal" className="modal">
+      <dialog id={`cancel_report_modal-${transactionID}`} className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Cancel report</h3>
           <p className="py-4">
@@ -262,7 +262,7 @@ export default function Card({
         </form>
       </dialog>
 
-      <dialog id="edit_modal" className="modal">
+      <dialog id={`edit_modal-${transactionID}`} className="modal">
         <div className="modal-box bg-slate-100">
           <h3 className="font-bold text-lg">Add transaction</h3>
           <form
@@ -370,7 +370,9 @@ export default function Card({
                     <a
                       onClick={(e) => {
                         e.preventDefault();
-                        document.getElementById("report_modal").showModal();
+                        document
+                          .getElementById(`report_modal-${transactionID}`)
+                          .showModal();
                       }}
                     >
                       <svg
@@ -395,7 +397,9 @@ export default function Card({
                       onClick={(e) => {
                         e.preventDefault();
                         document
-                          .getElementById("cancel_report_modal")
+                          .getElementById(
+                            `cancel_report_modal-${transactionID}`
+                          )
                           .showModal();
                       }}
                     >
@@ -422,7 +426,9 @@ export default function Card({
                     <a
                       onClick={(e) => {
                         e.preventDefault();
-                        document.getElementById("delete_modal").showModal();
+                        document
+                          .getElementById(`delete_modal-${transactionID}`)
+                          .showModal();
                       }}
                     >
                       <svg
@@ -449,7 +455,9 @@ export default function Card({
                     <a
                       onClick={(e) => {
                         e.preventDefault();
-                        document.getElementById("edit_modal").showModal();
+                        document
+                          .getElementById(`edit_modal-${transactionID}`)
+                          .showModal();
                       }}
                     >
                       <svg
