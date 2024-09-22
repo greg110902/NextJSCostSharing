@@ -28,10 +28,11 @@ async function deleteTransaction(transactionID) {
   location.reload();
 }
 
-async function submitForm(everyoneChecked, userID, users, transactionID) {
+async function submitForm(userID, users, transactionID) {
   // Get the relevant input field values
   let title = document.getElementById("edit-title").value;
   let amount = Number(document.getElementById("edit-amount").value);
+  let everyoneChecked = document.getElementById("edit-allchecked").checked;
 
   // Initialise database client
   const client = supabase();
@@ -49,7 +50,7 @@ async function submitForm(everyoneChecked, userID, users, transactionID) {
         checked.push(payer.id);
       }
     }
-  } else {
+  } else if (everyoneChecked) {
     // if everyone is selected
     let ids = [];
     users.forEach((element) => {
@@ -134,7 +135,7 @@ export default function Card({
             onSubmit={(e) => {
               // Prevent the default action (because of iOS)
               e.preventDefault();
-              submitForm(everyoneChecked, userID, users, transactionID);
+              submitForm(userID, users, transactionID);
             }}
           >
             <div className="m-1">
@@ -168,6 +169,7 @@ export default function Card({
               <label className=" text-black">Everyone paying</label>
               <input
                 type="checkbox"
+                id="edit-allchecked"
                 defaultChecked={everyoneChecked}
                 onClick={() => setEveryoneChecked(!everyoneChecked)}
                 className="checkbox align-middle mx-3"
