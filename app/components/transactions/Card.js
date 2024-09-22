@@ -33,6 +33,13 @@ async function reportTransaction(transactionID, userID, report) {
     .update({ reportedBy: newReport })
     .eq("id", transactionID);
 
+  if (newReport.length === 4) {
+    const { error } = await client
+      .from("transactions")
+      .update({ valid: false })
+      .eq("id", transactionID);
+  }
+
   location.reload();
 }
 
