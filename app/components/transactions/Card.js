@@ -226,7 +226,7 @@ export default function Card({
               className="btn"
               onClick={(e) => {
                 e.preventDefault();
-                reportTransaction(transactionID, userID, reportedBy);
+                reportTransaction(transactionID, userID, reportedBy, affected);
               }}
             >
               Report
@@ -250,7 +250,7 @@ export default function Card({
               className="btn"
               onClick={(e) => {
                 e.preventDefault();
-                cancelReport(transactionID, userID, reportedBy);
+                cancelReport(transactionID, userID, reportedBy, affected);
               }}
             >
               Report
@@ -363,7 +363,7 @@ export default function Card({
               </div>
               <ul
                 tabIndex={0}
-                className="dropdown-content menu bg-transparent border-transparent z-[1] p-2 shadow w-auto"
+                className="dropdown-content menu bg-transparent border-transparent z-[1] p-2 w-auto"
               >
                 {!reports.includes(userID) ? (
                   <li>

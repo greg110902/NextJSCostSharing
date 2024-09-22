@@ -85,6 +85,7 @@ export default function Home() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAll, setShowAll] = useState(false);
+  const [showValid, setShowValid] = useState(false);
 
   // Get the current user
   const { isSignedIn, user } = useUser();
@@ -94,6 +95,9 @@ export default function Home() {
 
   const onChangeAll = (e) => {
     setShowAll(!e.target.checked);
+  };
+  const onChangeValid = (e) => {
+    setShowValid(e.target.checked);
   };
 
   if (isSignedIn) {
@@ -176,6 +180,14 @@ export default function Home() {
                       defaultChecked
                     />
                   </div>
+                  <div>
+                    <label>Show invalid transactions?</label>
+                    <input
+                      type="checkbox"
+                      className="toggle"
+                      onChange={(e) => onChangeValid(e)}
+                    />
+                  </div>
                 </li>
               </ul>
             </details>
@@ -254,22 +266,24 @@ export default function Home() {
               const date = new Date(transaction["created_at"]).toLocaleString(
                 "en-GB"
               );
-              return (
-                <Card
-                  transactionID={transaction["id"]}
-                  author={userIDToName(transaction["author"], users)}
-                  affected={transaction["affecting"]}
-                  amount={transaction["amount"]}
-                  title={transaction["title"]}
-                  date={date}
-                  userID={user.id}
-                  authorID={transaction["author"]}
-                  allChecked={
-                    transaction["affecting"].length === 7 ? true : false
-                  }
-                  reportedBy={transaction["reportedBy"]}
-                />
-              );
+              if (transaction.valid || showValid) {
+                return (
+                  <Card
+                    transactionID={transaction["id"]}
+                    author={userIDToName(transaction["author"], users)}
+                    affected={transaction["affecting"]}
+                    amount={transaction["amount"]}
+                    title={transaction["title"]}
+                    date={date}
+                    userID={user.id}
+                    authorID={transaction["author"]}
+                    allChecked={
+                      transaction["affecting"].length === 7 ? true : false
+                    }
+                    reportedBy={transaction["reportedBy"]}
+                  />
+                );
+              }
             })}
           </div>
         </div>
