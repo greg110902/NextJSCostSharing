@@ -242,8 +242,8 @@ export default function Card({
         <div className="modal-box">
           <h3 className="font-bold text-lg">Cancel report</h3>
           <p className="py-4">
-            Reporting a transaction only takes effect when 4 users in the house
-            agree. Click off of the box to cancel.
+            Cancel your report on this transaction. Click off of the box to
+            cancel.
           </p>
           <div className="flex justify-center">
             <button
@@ -253,7 +253,7 @@ export default function Card({
                 cancelReport(transactionID, userID, reportedBy, affected);
               }}
             >
-              Report
+              Cancel report
             </button>
           </div>
         </div>
