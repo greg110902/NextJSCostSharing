@@ -140,7 +140,7 @@ export default function Card({
             <div className="m-1">
               <label className="m-1 text-black">Author</label>
               <input
-                id="author"
+                id="edit-author"
                 disabled
                 className="bg-slate-300 rounded flex flex-1 float-right"
                 defaultValue={author}
