@@ -338,7 +338,7 @@ export default function Card({
         <div className="card-body">
           <div className="card-title flex justify-between">
             <h2 className="text-slate-900">{title}</h2>
-            <div className="dropdown">
+            <div className="dropdown dropdown-right">
               <div
                 tabIndex={0}
                 role="button"
