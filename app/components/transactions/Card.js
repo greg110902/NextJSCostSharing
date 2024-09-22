@@ -44,10 +44,6 @@ export default function Card({
     fetchUsers();
   }, []);
 
-  if (affected.length != 7) {
-    setEveryoneChecked(false);
-  }
-
   return (
     <div>
       <dialog id="delete_modal" className="modal">
