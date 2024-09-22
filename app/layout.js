@@ -3,7 +3,6 @@ import "./globals.css";
 import Drawer from "./components/navbar/Drawer";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/nextjs";
 import { SignInButton, UserButton } from "@clerk/nextjs";
-import OneSignal from "react-onesignal";
 
 const inter = Inter({ subsets: ["latin"] });
 

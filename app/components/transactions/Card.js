@@ -73,7 +73,7 @@ export default function Card({
                 id="author"
                 disabled
                 className="bg-slate-300 rounded flex flex-1 float-right"
-                defaultValue={user.firstName}
+                defaultValue={author}
               ></input>
             </div>
             <div className="m-1">
