@@ -17,6 +17,25 @@ function userIDToName(userID, users) {
   return filter[0];
 }
 
+async function reportTransaction(transactionID, userID, report) {
+  const client = supabase();
+
+  let newReport;
+
+  if (report === null) {
+    newReport = [userID];
+  } else {
+    newReport = report.push(userID);
+  }
+
+  const { error } = await client
+    .from("transactions")
+    .update({ reportedBy: newReport })
+    .eq("id", transactionID);
+
+  location.reload();
+}
+
 async function deleteTransaction(transactionID) {
   const client = supabase();
 
@@ -91,6 +110,7 @@ export default function Card({
   date,
   userID,
   allChecked,
+  reportedBy,
 }) {
   // Initialise states
   const [users, setUsers] = useState([]);
@@ -120,7 +140,10 @@ export default function Card({
           <div className="flex justify-center">
             <button
               className="btn"
-              onClick={() => deleteTransaction(transactionID)}
+              onClick={(e) => {
+                e.preventDefault();
+                deleteTransaction(transactionID);
+              }}
             >
               Delete
             </button>
@@ -128,6 +151,30 @@ export default function Card({
         </div>
         <form method="dialog" className="modal-backdrop">
           <button>Delete</button>
+        </form>
+      </dialog>
+
+      <dialog id="report_modal" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Report transaction</h3>
+          <p className="py-4">
+            Reporting a transaction only takes effect when 4 users in the house
+            agree. Click off of the box to cancel.
+          </p>
+          <div className="flex justify-center">
+            <button
+              className="btn"
+              onClick={(e) => {
+                e.preventDefault();
+                reportTransaction(transactionID, userID, reportedBy);
+              }}
+            >
+              Report
+            </button>
+          </div>
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button>Report</button>
         </form>
       </dialog>
 
@@ -235,7 +282,12 @@ export default function Card({
                 className="dropdown-content menu bg-transparent border-transparent z-[1] p-2 shadow w-auto"
               >
                 <li>
-                  <a>
+                  <a
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.getElementById("report_modal").showModal();
+                    }}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -255,7 +307,8 @@ export default function Card({
                 {userID === authorID ? (
                   <li>
                     <a
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.preventDefault();
                         document.getElementById("delete_modal").showModal();
                       }}
                     >
@@ -281,7 +334,8 @@ export default function Card({
                 {userID === authorID ? (
                   <li>
                     <a
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.preventDefault();
                         document.getElementById("edit_modal").showModal();
                       }}
                     >

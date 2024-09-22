@@ -267,6 +267,7 @@ export default function Home() {
                   allChecked={
                     transaction["affecting"].length === 7 ? true : false
                   }
+                  reportedBy={transaction["reportedBy"]}
                 />
               );
             })}
