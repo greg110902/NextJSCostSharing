@@ -1,7 +1,7 @@
 import supabase from "../../utils/supabase";
 import { useEffect, useState } from "react";
 
-export default function PayerForm({ currentID }) {
+export default function PayerForm({ currentID, transactionID }) {
   // Initialise states
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);

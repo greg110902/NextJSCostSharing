@@ -42,7 +42,7 @@ async function submitForm(userID, users, transactionID) {
 
   if (!everyoneChecked) {
     // Runs if transaction only affects a subset of the house
-    var payers = document.getElementsByName("edit-payerCheckbox");
+    var payers = document.getElementsByName(`payerCheckbox-${transactionID}`);
     for (const payer of payers) {
       // Loops over the user checkboxes on the form
       if (payer.checked) {
