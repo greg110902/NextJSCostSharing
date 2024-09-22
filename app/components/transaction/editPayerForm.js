@@ -33,7 +33,7 @@ export default function EditPayerForm({ currentID, affecting }) {
               </label>
               <input
                 type="checkbox"
-                id={user["id"]}
+                id={`edit-${user["id"]}`}
                 defaultChecked={affecting.includes(user["id"])}
                 name="edit-payerCheckbox"
                 className="checkbox bg-slate-200 align-middle mx-3"
