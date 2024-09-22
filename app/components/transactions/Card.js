@@ -48,6 +48,7 @@ async function submitForm(userID, users, transactionID) {
       if (payer.checked) {
         // If the user is selected, add their ID to the checked array
         checked.push(payer.id);
+        console.log("pushing", payer.id);
       }
     }
   } else if (everyoneChecked) {
@@ -55,10 +56,13 @@ async function submitForm(userID, users, transactionID) {
     let ids = [];
     users.forEach((element) => {
       // Add everyone's ID to the array
+      console.log("user", element.firstName);
       ids.push(element.id);
     });
     checked = ids;
   }
+
+  console.log("after code", checked);
 
   // Insert the transaction to the database
   const { error } = await client
