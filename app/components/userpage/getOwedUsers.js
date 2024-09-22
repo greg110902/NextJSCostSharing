@@ -3,7 +3,7 @@ export function getUserBalances(transactions, users) {
   users.forEach((user) => {
     let balance = 0;
     transactions.forEach((transaction) => {
-      if (transaction.author === user.id) {
+      if (transaction.author === user.id && transaction.valid) {
         if (transaction.affecting.includes(user.id)) {
           balance +=
             (transaction.amount * (transaction.affecting.length - 1)) /
@@ -13,7 +13,8 @@ export function getUserBalances(transactions, users) {
         }
       } else if (
         transaction.affecting.includes(user.id) &&
-        transaction.author != user.id
+        transaction.author != user.id &&
+        transaction.valid
       ) {
         balance -= transaction.amount / transaction.affecting.length;
       }
