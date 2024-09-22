@@ -17,6 +17,17 @@ function userIDToName(userID, users) {
   return filter[0];
 }
 
+async function deleteTransaction(transactionID) {
+  const client = supabase();
+
+  const { error } = await client
+    .from("transactions")
+    .delete()
+    .eq("id", transactionID);
+
+  location.reload();
+}
+
 export default function Card({
   transactionID,
   author,
@@ -48,11 +59,19 @@ export default function Card({
     <div>
       <dialog id="delete_modal" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <p className="py-4">Press ESC key or click outside to close</p>
+          <h3 className="font-bold text-lg">This action cannot be undone.</h3>
+          <p className="py-4">Confirm delete or click away to close.</p>
+          <div className="flex justify-center">
+            <button
+              className="btn"
+              onClick={() => deleteTransaction(transactionID)}
+            >
+              Delete
+            </button>
+          </div>
         </div>
         <form method="dialog" className="modal-backdrop">
-          <button>close</button>
+          <button>Delete</button>
         </form>
       </dialog>
 
