@@ -34,9 +34,7 @@ export default function EditPayerForm({ currentID, affecting }) {
               <input
                 type="checkbox"
                 id={user["id"]}
-                defaultChecked={
-                  currentID === user["id"] || affecting.includes(user["id"])
-                }
+                defaultChecked={affecting.includes(user["id"])}
                 name="edit-payerCheckbox"
                 className="checkbox bg-slate-200 align-middle mx-3"
               ></input>
