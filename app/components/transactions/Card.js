@@ -42,7 +42,7 @@ async function reportTransaction(transactionID, userID, report, affected) {
         .eq("id", transactionID);
     }
   } else {
-    if (newReport.length === affected.length) {
+    if (newReport.length === affected.length && affected.length != 1) {
       const { error } = await client
         .from("transactions")
         .update({ valid: false })
@@ -365,7 +365,7 @@ export default function Card({
                 tabIndex={0}
                 className="dropdown-content menu bg-transparent border-transparent z-[1] p-2 w-auto"
               >
-                {!reports.includes(userID) ? (
+                {!reports.includes(userID) && affected.includes(userID) ? (
                   <li>
                     <a
                       onClick={(e) => {
@@ -389,7 +389,7 @@ export default function Card({
                       </svg>
                     </a>
                   </li>
-                ) : (
+                ) : affected.includes(userID) ? (
                   <li>
                     <a
                       onClick={(e) => {
@@ -413,6 +413,8 @@ export default function Card({
                       </svg>
                     </a>
                   </li>
+                ) : (
+                  <></>
                 )}
 
                 {userID === authorID ? (
