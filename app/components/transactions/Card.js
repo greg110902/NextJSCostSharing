@@ -44,6 +44,10 @@ export default function Card({
     fetchUsers();
   }, []);
 
+  if (affected.length != 7) {
+    setEveryoneChecked(false);
+  }
+
   return (
     <div>
       <dialog id="delete_modal" className="modal">
@@ -103,7 +107,7 @@ export default function Card({
                 className="checkbox align-middle mx-3"
               />
               {/* Show an additional form if the user is selecting a subset of the house */}
-              {!everyoneChecked ? <PayerForm currentID={user.id} /> : <></>}
+              {!everyoneChecked ? <PayerForm currentID={authorID} /> : <></>}
             </div>
             <div className="modal-action">
               {/* Button submits the form and hides the modal. */}
